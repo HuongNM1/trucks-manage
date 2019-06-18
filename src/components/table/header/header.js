@@ -10,13 +10,13 @@ class Header extends React.Component {
         let headerItems = [];
 
         for (let i = 0; i < this.props.value.length; i++) {
-            headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} />);
+            headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} />);
         }
         return headerItems;
     }
     render() {
         return (
-            <thead>
+            <thead className="thead-dark">
                 <tr>
                     {this.renderHeader()}
                 </tr>

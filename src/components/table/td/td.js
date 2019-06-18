@@ -15,13 +15,18 @@ class Td extends React.Component {
                     return this.props.value[key];
                 });
             }
-
         }
     }
     render() {
-        return (
+        let reactElem = (
             <td key={this.handleValue()}>{this.handleValue()}</td>
         );
+        if(1 === this.props.type){
+            reactElem = (
+                <th key={this.handleValue()} scope="col">{this.handleValue()}</th>
+            );
+        }
+        return reactElem;
     }
 }
 
