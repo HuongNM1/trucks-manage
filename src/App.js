@@ -11,11 +11,10 @@ class App extends React.Component {
     this.state = {
       header: [],
       dataList: [],
-      searchString: '',
-      searchby: 0,
       sortBy: 0,
       sortType: 0,
       load: true,
+      dataFilterList: []
     }
 
     this.searchBy = this.searchBy.bind(this);
@@ -30,7 +29,8 @@ class App extends React.Component {
       self.setState({
         header: result.data['header'],
         dataList: result.data['dataList'],
-        load: false
+        load: false,
+        dataFilterList: result.data['dataList']
       });
     }
   }
@@ -39,23 +39,37 @@ class App extends React.Component {
     this.getData()
   }
 
-  searchBy(searchBy, searchString){
-    console.log(searchBy, searchString);
+  searchBy(searchBy, searchString) {
+    let { dataList, dataFilterList, header } = this.state;
+    dataFilterList = dataList.filter((value, index) => {
+      if ('' === searchBy) {
+        for (let i = 0; i < header.length; i++) {
+          if ('string' === typeof value[header[i].key] &&
+            value[header[i].key].toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+            return true;
+          }
+        }
+        return false;
+      } else {
+        return value[searchBy].toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
+      }
+    })
+    this.setState({ dataFilterList: dataFilterList });
   }
 
   render() {
     if (this.state.load) {
       return (
         <div className="container">
-            <Load />
+          <Load />
         </div>
       );
     }
     return (
       <div className="container">
         <div className="row">
-          <Search search={this.searchBy}/>
-          <Table header={this.state.header} dataList={this.state.dataList} />
+          <Search search={this.searchBy} value={this.state.header} />
+          <Table header={this.state.header} dataList={this.state.dataFilterList} />
         </div>
       </div>
     );
