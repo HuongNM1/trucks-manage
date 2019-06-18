@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Table from './table/Table';
 
 function App() {
