@@ -1,6 +1,9 @@
 import React from 'react';
 import Dropdown from '../Dropdown'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
 class SearchBox extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +19,7 @@ class SearchBox extends React.Component {
         this.setState({ searchBy: key });
     }
     render() {
+        const element = <FontAwesomeIcon icon={faSearch} />
         return (
             <div className="input-group mb-3">
                 <Dropdown value={this.props.value} getSearchBy={this.getSearchBy} />
@@ -36,6 +40,8 @@ class SearchBox extends React.Component {
                                 this.props.search(this.state.searchBy, searchElem.value);
                             }
                         }}>
+                        
+                        {element}
                         Search
                     </button>
                 </div>
