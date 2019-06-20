@@ -22,6 +22,9 @@ class App extends React.Component {
       typeInputForm: 0,
       dataModel: {},
       formType: 0,
+      pageIdx: 1,
+      pageNumber: 1,
+      numberItemOnePage: 1
     }
 
     Object.keys(TruckModel).forEach((key, idx) => {
@@ -47,10 +50,13 @@ class App extends React.Component {
       if (data) {
         result.data['dataList'] = [...data];
       }
+      
       self.setState({
         header: result.data['header'],
         dataList: result.data['dataList'],
         mapping: result.data['mapping'],
+        pageNumber: 10,//result.data['dataList'].lenth/this.state.numberItemOnePage,
+        pageIdx: 1,
         attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList'],
@@ -199,6 +205,12 @@ class App extends React.Component {
     })
   }
 
+  onChangePage = (pageIdx) => {
+    this.setState({
+      pageIdx: pageIdx
+    })
+  }
+
   render() {
     let content = null;
     if (this.state.load) {
@@ -225,8 +237,11 @@ class App extends React.Component {
             <Table
               header={this.state.header}
               dataList={this.state.dataFilterList}
+              pageIdx={this.state.pageIdx}
+              pageNumber={this.state.pageNumber}
               onOpenEditForm={this.onOpenEditForm}
               onDelete={this.onDelete}
+              onChangePage={this.onChangePage}
             />
           </div>
         </div>;

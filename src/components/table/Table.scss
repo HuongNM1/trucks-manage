@@ -22,3 +22,21 @@
         }
     }
 }
+.paging{
+    .focus{
+        background-color: #cccccc;
+    }
+    .page-item{
+        display: inline-block;
+        min-width: 30px;
+        border: 1px solid #cccccc;
+        border-radius: 2px;
+        text-align: center;
+        padding: 3px;
+        box-sizing: border-box;
+        cursor: pointer;
+        &:hover{
+            background-color: #dbdbdb;
+        }
+    }
+}
