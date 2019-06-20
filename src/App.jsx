@@ -34,7 +34,19 @@ class App extends React.Component {
     let self = this;
     self.setState({ load: true });
     const result = await axios.get('http://localhost:3008/');
+    const dataList = localStorage.getItem('dataList');
+    let data = null;
+    if (dataList) {
+      try {
+        data = JSON.parse(dataList)
+      } catch (e) {
+        console.log(e);
+      }
+    }
     if (result && result.data) {
+      if(data){
+        result.data['dataList'] = [...data];
+      }
       self.setState({
         header: result.data['header'],
         dataList: result.data['dataList'],
@@ -75,15 +87,93 @@ class App extends React.Component {
     })
   }
 
+  convertItemToModel(dataItem){
+    return {
+      id:  { value: dataItem.id, errorCode: null },
+      'truck-palte': { value: dataItem['truck-palte'], errorCode: null },
+      'cargo-type': { value: dataItem['cargo-type'], errorCode: null },
+      'driver': { value: dataItem['driver'], errorCode: null },
+      'truck-type': { value: dataItem['truck-type'], errorCode: null },
+      'price': { value: dataItem['price'], errorCode: null },
+      'dimention-l': { value: dataItem['dimention']['l'], errorCode: null },
+      'dimention-w': { value: dataItem['dimention']['w'], errorCode: null },
+      'dimention-h': { value: dataItem['dimention']['h'], errorCode: null },
+      'parking-address': { value: dataItem['parking-address'], errorCode: null },
+      'production-year': { value: dataItem['production-year'], errorCode: null },
+      'status': { value: dataItem['status'], errorCode: null },
+      'description': { value: dataItem['description'], errorCode: null },
+    }
+  }
+
   onOpenEditForm = (truckId) => {
+    let dataModel;
+    for(let i = 0; i < this.state.dataList.length; i++){
+      if(truckId === this.state.dataList[i]['id']){
+        dataModel = this.convertItemToModel(this.state.dataList[i]);
+      }
+    }
     this.setState({
       openInputForm: true,
-      formType: 1
+      formType: 1,
+      dataModel: dataModel
     })
   }
 
+  getTextValue = (attribute, value)=>{
+    let {mapping} = this.state;
+    for(let i = 0; i< mapping.length; i++){
+      if(mapping[i].attribute === attribute){
+        for(let j = 0; j < mapping[i].mappingValues.length; j++){
+          if(mapping[i].mappingValues[j]['value'] == value){
+            return mapping[i].mappingValues[j]['text'];
+          }
+        }
+      }
+    }
+  }
+
+  convertDataModel = (dataModel) => {
+    return {
+      'id': dataModel['id']||1,
+      'truck-palte': dataModel['truck-palte'].value,
+      'cargo-type': dataModel['cargo-type'].value,
+      'driver': dataModel['driver'].value,
+      'truck-type': dataModel['truck-type'].value,
+      'price': dataModel['price'].value,
+      'dimention': {
+        'l': dataModel['dimention-l'].value,
+        'w': dataModel['dimention-w'].value,
+        'h': dataModel['dimention-h'].value
+      },
+      'parking-address': dataModel['parking-address'].value,
+      'production-year': dataModel['production-year'].value,
+      'status': this.getTextValue('status',dataModel['status'].value) ,
+      'description': dataModel['description'].value
+    };
+  }
+
   onSubmitForm = (dataModel) => {
-    console.log(dataModel);
+    let { dataList } = this.state;
+    if (0 === this.state.formType) {
+      let data = this.convertDataModel(dataModel);
+      data['id'] = dataList[dataList.length - 1]['id'] + 1;
+      dataList.push(data);
+      this.setState({
+        dataList: dataList
+      })
+    }else if(1 === this.state.formType){
+      let data = this.convertDataModel(dataModel);
+      for(let i = 0; i < dataList.length; i++){
+        if(dataList[i].id === dataModel['id'].value){
+          dataList[i] = {...data};
+          break;
+        }
+      }
+      this.setState({
+        dataList: dataList
+      })
+    }
+    localStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
   onCloseFrom = () => {

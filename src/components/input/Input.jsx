@@ -44,6 +44,9 @@ class Input extends React.Component {
                         <option value={-1}>Stopping</option>
                     </select>;
                 break;
+            case 4:
+            //list checkbox
+                break;
             default:
                 inputElem = '';
                 break;

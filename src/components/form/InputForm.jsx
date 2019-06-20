@@ -48,7 +48,6 @@ class InputForm extends React.Component {
         let errorCode = null;
         Object.keys(this.state).forEach((key, idx) => {
             errorCode = this.validateInputData(key, this.state[key].value);
-            console.log(this.state[key].errorCode, errorCode, key);
             if (null != this.state[key].errorCode) {
                 error = true;
                 console.log('error');
