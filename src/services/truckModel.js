@@ -47,20 +47,20 @@ const Truck = {
             sortAble: true
         }
     },
-    'dimention': {
-        label: 'Dimention'
-    },
     'dimention-l': {
+        label: 'Dimention-L',
         validate: {
             type: 'number',
         }
     },
     'dimention-w': {
+        label: 'Dimention-W',
         validate: {
             type: 'number',
         }
     },
     'dimention-h': {
+        label: 'Dimention-H',
         validate: {
             type: 'number',
         }
@@ -70,7 +70,7 @@ const Truck = {
         validate: {
             require: true,
             type: 'string',
-            maxLength: 5,
+            maxLength: 500,
             searchAble: true
         }
     },

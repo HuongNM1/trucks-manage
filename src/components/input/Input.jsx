@@ -12,30 +12,54 @@ class Input extends React.Component {
         let errorEle = null !== this.props.value.errorCode ?
             <ErrorMessage errorCode={this.props.value.errorCode} label={label} /> :
             '';
+        let inputElem = '';
         switch (this.props.type) {
             case 1:
-                return (
-                    <div className="input-group mb-3 d-flex">
-                        <div className="input-label">
-                            <label className="mr-2">{label}</label>
-                            {requireEle}
-                        </div>
-                        <div className="input-content">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder={`Input ${label}`}
-                                aria-describedby="button-addon2"
-                                value={this.props.value.value}
-                                onChange={this.onChange}
-                            />
-                            {errorEle}
-                        </div>
-                    </div>
-                );
+                inputElem = <input
+                    type="text"
+                    className="form-control"
+                    placeholder={`Input ${label}`}
+                    aria-describedby="button-addon2"
+                    value={this.props.value.value}
+                    onChange={this.onChange}
+                />;
+                break;
+            case 2:
+                inputElem = <textarea
+                    className="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    placeholder={`Input ${label}`}
+                    value={this.props.value.value}
+                    onChange={this.onChange}>
+                </textarea>;
+                break;
+            case 3:
+                inputElem =
+                    <select name="carlist"
+                        value={this.props.value.value}
+                        onChange={this.onChange}>
+                        <option value={0} checked>New</option>
+                        <option value={1}>In-use</option>
+                        <option value={-1}>Stopping</option>
+                    </select>;
+                break;
             default:
-                return '';
+                inputElem = '';
+                break;
         }
+        return (
+            <div className="input-group mb-3 d-flex">
+                <div className="input-label">
+                    <label className="mr-2">{label}</label>
+                    {requireEle}
+                </div>
+                <div className="input-content">
+                    {inputElem}
+                    {errorEle}
+                </div>
+            </div>
+        );
     }
 }
 

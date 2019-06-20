@@ -12,7 +12,7 @@ class PrehandleTable extends React.Component {
                     <div className="col-4">
                         <button
                             type="button"
-                            className="btn btn-info"
+                            className="btn btn-info float-right"
                             onClick={this.props.addTruck}
                         >
                             Add new truck

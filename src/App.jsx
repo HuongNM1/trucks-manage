@@ -23,7 +23,7 @@ class App extends React.Component {
       dataModel: {},
       formType: 0,
     }
-    
+
     Object.keys(TruckModel).forEach((key, idx) => {
       this.state.dataModel[key] = { value: '', errorCode: null };
     });
@@ -97,7 +97,8 @@ class App extends React.Component {
     let content = null;
     if (this.state.load) {
       content =
-        <div className="container">
+        <div className="container cover">
+          <h1 className="page-title">Truck Managment</h1>
           <Load />
         </div>;
     } else {
@@ -110,7 +111,8 @@ class App extends React.Component {
             value={this.state.dataModel} />
         </div> : '';
       content =
-        <div className="container">
+        <div className="container cover">
+          <h1 className="page-title">Truck Managment</h1>
           {inputForm}
           <div className="row">
             <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />

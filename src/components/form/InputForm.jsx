@@ -75,7 +75,9 @@ class InputForm extends React.Component {
             { type: 1, attr: 'cargo-type' },
             { type: 1, attr: 'driver' },
             { type: 1, attr: 'truck-type' },
-            { type: 1, attr: 'price' },
+            { type: 1, attr: 'dimention-l' },
+            { type: 1, attr: 'dimention-w' },
+            { type: 1, attr: 'dimention-h' },
         ];
         let truckEles = [];
         trucks.forEach((value, idx) => {
@@ -89,11 +91,11 @@ class InputForm extends React.Component {
         })
 
         let infor = [
-            { type: 1, attr: 'dimention' },
-            { type: 1, attr: 'parking-address' },
+            { type: 1, attr: 'price' },
             { type: 1, attr: 'production-year' },
-            { type: 1, attr: 'status' },
-            { type: 1, attr: 'description' }
+            { type: 3, attr: 'status' },
+            { type: 2, attr: 'parking-address' },
+            { type: 2, attr: 'description' }
         ];
         let inforEles = [];
         infor.forEach((value, idx) => {
