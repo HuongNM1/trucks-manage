@@ -70,7 +70,7 @@ const Truck = {
         validate: {
             require: true,
             type: 'string',
-            maxLength: 500,
+            maxLength: 5,
             searchAble: true
         }
     },

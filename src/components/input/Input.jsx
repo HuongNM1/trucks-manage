@@ -2,20 +2,15 @@ import React from 'react';
 import ErrorMessage from './ErrorMessage';
 
 class Input extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: '',
-            errorCode: null
-        }
-    }
     onChange = (event) => {
         this.props.onChange(this.props.attribute, event.target.value);
     }
     render() {
         let { label, validate } = this.props.modelInfor;
         let requireEle = validate && validate.require ? <b className="require-star">*</b> : '';
+        let errorEle = null !== this.props.value.errorCode ?
+            <ErrorMessage errorCode={this.props.value.errorCode} label={label} /> :
+            '';
         switch (this.props.type) {
             case 1:
                 return (
@@ -27,9 +22,10 @@ class Input extends React.Component {
                             className="form-control"
                             placeholder={`Input ${label}`}
                             aria-describedby="button-addon2"
+                            value = {this.props.value.value}
                             onChange={this.onChange}
                         />
-                        <ErrorMessage errorCode={this.state.errorCode} label={label}/>
+                        {errorEle}
                     </div>
                 );
             default:

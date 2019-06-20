@@ -17,8 +17,16 @@ class App extends React.Component {
       sortBy: 0,
       sortType: 0,
       load: true,
-      dataFilterList: []
+      dataFilterList: [],
+      openInputForm: false,
+      typeInputForm: 0,
+      dataModel: {},
+      formType: 0,
     }
+    
+    Object.keys(TruckModel).forEach((key, idx) => {
+      this.state.dataModel[key] = { value: '', errorCode: null };
+    });
   }
 
 
@@ -34,10 +42,6 @@ class App extends React.Component {
         attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList'],
-        openInputForm: false,
-        typeInputForm: 0,
-        dataModel: null,
-        formType: 0,
       });
     }
   }
@@ -66,23 +70,23 @@ class App extends React.Component {
 
   addTruck = () => {
     this.setState({
-      openInputForm: true
+      openInputForm: true,
+      formType: 0
     })
   }
 
-  onOpenEditForm = (truckId)=>{
-    console.log(truckId);
+  onOpenEditForm = (truckId) => {
     this.setState({
       openInputForm: true,
       formType: 1
     })
   }
 
-  onSubmitForm = (dataModel)=>{
+  onSubmitForm = (dataModel) => {
     console.log(dataModel);
   }
 
-  onCloseFrom = ()=>{
+  onCloseFrom = () => {
     this.setState({
       openInputForm: false
     })
@@ -99,7 +103,11 @@ class App extends React.Component {
     } else {
       let inputForm = this.state.openInputForm ?
         <div className="row">
-          <InputForm onSubmit={this.onSubmitForm} onClose={this.onCloseFrom} formType={this.state.formType}/>
+          <InputForm
+            onSubmit={this.onSubmitForm}
+            onClose={this.onCloseFrom}
+            formType={this.state.formType}
+            value={this.state.dataModel} />
         </div> : '';
       content =
         <div className="container">

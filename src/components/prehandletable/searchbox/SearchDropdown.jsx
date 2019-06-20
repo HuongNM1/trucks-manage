@@ -45,7 +45,7 @@ class Dropdown extends React.Component {
                 }
             }
             return (
-                <div className={"dropdown " + this.state.showDropdownClass}>
+                <div className={"dropdown mr-1" + this.state.showDropdownClass}>
                     <button className="btn btn-outline-primary dropdown-toggle"
                         type="button" id="dropdownMenu2"
                         data-toggle="dropdown"
