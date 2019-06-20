@@ -79,6 +79,7 @@ const Truck = {
     },
     'status': {
         label: 'Status',
+        defaultValue: 0,
         validate: {
             require: true,
             type: 'number',

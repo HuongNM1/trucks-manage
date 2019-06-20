@@ -119,17 +119,18 @@ class App extends React.Component {
   }
 
   onOpenEditForm = (truckId) => {
-    let dataModel;
+    let dataModel ;
     for (let i = 0; i < this.state.dataList.length; i++) {
       if (truckId === this.state.dataList[i]['id']) {
         dataModel = this.convertItemToModel(this.state.dataList[i]);
+        this.setState({
+          openInputForm: true,
+          formType: 1,
+          dataModel: dataModel
+        });
+        return true;
       }
     }
-    this.setState({
-      openInputForm: true,
-      formType: 1,
-      dataModel: dataModel
-    })
   }
 
   getTextValue = (attribute, value) => {
@@ -147,7 +148,7 @@ class App extends React.Component {
 
   convertDataModel = (dataModel) => {
     return {
-      'id': dataModel['id'] || 1,
+      'id': dataModel['id'].value || 1,
       'truck-palte': dataModel['truck-palte'].value,
       'cargo-type': dataModel['cargo-type'].value,
       'driver': dataModel['driver'].value,
