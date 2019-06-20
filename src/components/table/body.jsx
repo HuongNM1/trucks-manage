@@ -27,7 +27,8 @@ class Body extends React.Component {
                         <button type="button" className="btn btn-outline-warning mr-1"
                             onClick={()=>{this.props.onOpenEditForm(this.props.value[i].id)}}
                             >Edit</button>
-                        <button type="button" className="btn btn-outline-danger">Delete</button>
+                        <button type="button" className="btn btn-outline-danger"
+                        onClick={()=>{this.props.onDelete(this.props.value[i].id)}}>Delete</button>
                     </td>
                 </tr>
             );

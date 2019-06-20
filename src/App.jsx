@@ -176,12 +176,25 @@ class App extends React.Component {
     localStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
+  onDelete = (truckId)=>{
+    let {dataList} = this.state;
+    for(let i = 0; i < dataList.length; i++){
+      if(dataList[i]['id'] === truckId){
+        dataList.splice(i, 1);
+        this.setState({
+          dataList: dataList
+        });
+        localStorage.setItem('dataList', JSON.stringify(dataList));
+        return true;
+      }
+    }
+  }
+
   onCloseFrom = () => {
     this.setState({
       openInputForm: false
     })
   }
-
 
   render() {
     let content = null;
@@ -210,6 +223,7 @@ class App extends React.Component {
               header={this.state.header}
               dataList={this.state.dataFilterList}
               onOpenEditForm={this.onOpenEditForm}
+              onDelete={this.onDelete}
             />
           </div>
         </div>;

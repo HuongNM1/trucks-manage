@@ -15,6 +15,7 @@ class Table extends React.Component {
                     <Body
                         value={this.props.dataList || []}
                         onOpenEditForm={this.props.onOpenEditForm}
+                        onDelete={this.props.onDelete}
                     />
                 </table>
             </div>
