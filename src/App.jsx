@@ -44,7 +44,7 @@ class App extends React.Component {
       }
     }
     if (result && result.data) {
-      if(data){
+      if (data) {
         result.data['dataList'] = [...data];
       }
       self.setState({
@@ -87,9 +87,9 @@ class App extends React.Component {
     })
   }
 
-  convertItemToModel(dataItem){
+  convertItemToModel(dataItem) {
     return {
-      id:  { value: dataItem.id, errorCode: null },
+      id: { value: dataItem.id, errorCode: null },
       'truck-palte': { value: dataItem['truck-palte'], errorCode: null },
       'cargo-type': { value: dataItem['cargo-type'], errorCode: null },
       'driver': { value: dataItem['driver'], errorCode: null },
@@ -107,8 +107,8 @@ class App extends React.Component {
 
   onOpenEditForm = (truckId) => {
     let dataModel;
-    for(let i = 0; i < this.state.dataList.length; i++){
-      if(truckId === this.state.dataList[i]['id']){
+    for (let i = 0; i < this.state.dataList.length; i++) {
+      if (truckId === this.state.dataList[i]['id']) {
         dataModel = this.convertItemToModel(this.state.dataList[i]);
       }
     }
@@ -119,12 +119,12 @@ class App extends React.Component {
     })
   }
 
-  getTextValue = (attribute, value)=>{
-    let {mapping} = this.state;
-    for(let i = 0; i< mapping.length; i++){
-      if(mapping[i].attribute === attribute){
-        for(let j = 0; j < mapping[i].mappingValues.length; j++){
-          if(mapping[i].mappingValues[j]['value'] == value){
+  getTextValue = (attribute, value) => {
+    let { mapping } = this.state;
+    for (let i = 0; i < mapping.length; i++) {
+      if (mapping[i].attribute === attribute) {
+        for (let j = 0; j < mapping[i].mappingValues.length; j++) {
+          if (mapping[i].mappingValues[j]['value'] == value) {
             return mapping[i].mappingValues[j]['text'];
           }
         }
@@ -134,7 +134,7 @@ class App extends React.Component {
 
   convertDataModel = (dataModel) => {
     return {
-      'id': dataModel['id']||1,
+      'id': dataModel['id'] || 1,
       'truck-palte': dataModel['truck-palte'].value,
       'cargo-type': dataModel['cargo-type'].value,
       'driver': dataModel['driver'].value,
@@ -147,7 +147,7 @@ class App extends React.Component {
       },
       'parking-address': dataModel['parking-address'].value,
       'production-year': dataModel['production-year'].value,
-      'status': this.getTextValue('status',dataModel['status'].value) ,
+      'status': this.getTextValue('status', dataModel['status'].value),
       'description': dataModel['description'].value
     };
   }
@@ -161,11 +161,11 @@ class App extends React.Component {
       this.setState({
         dataList: dataList
       })
-    }else if(1 === this.state.formType){
+    } else if (1 === this.state.formType) {
       let data = this.convertDataModel(dataModel);
-      for(let i = 0; i < dataList.length; i++){
-        if(dataList[i].id === dataModel['id'].value){
-          dataList[i] = {...data};
+      for (let i = 0; i < dataList.length; i++) {
+        if (dataList[i].id === dataModel['id'].value) {
+          dataList[i] = { ...data };
           break;
         }
       }
@@ -176,16 +176,19 @@ class App extends React.Component {
     localStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
-  onDelete = (truckId)=>{
-    let {dataList} = this.state;
-    for(let i = 0; i < dataList.length; i++){
-      if(dataList[i]['id'] === truckId){
-        dataList.splice(i, 1);
-        this.setState({
-          dataList: dataList
-        });
-        localStorage.setItem('dataList', JSON.stringify(dataList));
-        return true;
+  onDelete = (truckId) => {
+    let cf = window.confirm('Do you really want to delete this truck information?');
+    if (true === cf) {
+      let { dataList } = this.state;
+      for (let i = 0; i < dataList.length; i++) {
+        if (dataList[i]['id'] === truckId) {
+          dataList.splice(i, 1);
+          this.setState({
+            dataList: dataList
+          });
+          localStorage.setItem('dataList', JSON.stringify(dataList));
+          return true;
+        }
       }
     }
   }
