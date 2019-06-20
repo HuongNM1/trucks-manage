@@ -18,13 +18,14 @@ class App extends React.Component {
       sortType: 0,
       load: true,
       dataFilterList: [],
+      dataListPage: [],
       openInputForm: false,
       typeInputForm: 0,
       dataModel: {},
       formType: 0,
-      pageIdx: 1,
+      pageIdx: 0,
       pageNumber: 1,
-      numberItemOnePage: 1
+      numberItemOnePage: 5
     }
 
     Object.keys(TruckModel).forEach((key, idx) => {
@@ -37,7 +38,7 @@ class App extends React.Component {
     let self = this;
     self.setState({ load: true });
     const result = await axios.get('http://localhost:3008/');
-    const dataList = localStorage.getItem('dataList');
+    const dataList = sessionStorage.getItem('dataList');
     let data = null;
     if (dataList) {
       try {
@@ -50,16 +51,16 @@ class App extends React.Component {
       if (data) {
         result.data['dataList'] = [...data];
       }
-      
       self.setState({
         header: result.data['header'],
         dataList: result.data['dataList'],
         mapping: result.data['mapping'],
-        pageNumber: 10,//result.data['dataList'].lenth/this.state.numberItemOnePage,
-        pageIdx: 1,
+        pageNumber: result.data['dataList'].length/this.state.numberItemOnePage,
+        pageIdx: 0,
         attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList'],
+        dataListPage: result.data['dataList'].slice(this.state.pageIdx, this.state.pageIdx+this.state.numberItemOnePage)
       });
     }
   }
@@ -83,7 +84,13 @@ class App extends React.Component {
         return value[searchBy].toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
       }
     })
-    this.setState({ dataFilterList: dataFilterList });
+    this.setState(
+      { 
+        dataFilterList: dataFilterList,
+        pageNumber: dataFilterList.length/this.state.numberItemOnePage,
+        dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx+this.state.numberItemOnePage)
+      }
+      );
   }
 
   addTruck = () => {
@@ -179,7 +186,7 @@ class App extends React.Component {
         dataList: dataList
       })
     }
-    localStorage.setItem('dataList', JSON.stringify(dataList));
+    sessionStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
   onDelete = (truckId) => {
@@ -192,7 +199,7 @@ class App extends React.Component {
           this.setState({
             dataList: dataList
           });
-          localStorage.setItem('dataList', JSON.stringify(dataList));
+          sessionStorage.setItem('dataList', JSON.stringify(dataList));
           return true;
         }
       }
@@ -205,9 +212,14 @@ class App extends React.Component {
     })
   }
 
+  pagingHandleList(page){
+
+  }
+
   onChangePage = (pageIdx) => {
     this.setState({
-      pageIdx: pageIdx
+      pageIdx: pageIdx,
+      dataListPage: this.state.dataFilterList.slice(pageIdx, pageIdx+this.state.numberItemOnePage)
     })
   }
 
@@ -236,7 +248,7 @@ class App extends React.Component {
             <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
             <Table
               header={this.state.header}
-              dataList={this.state.dataFilterList}
+              dataList={this.state.dataListPage}
               pageIdx={this.state.pageIdx}
               pageNumber={this.state.pageNumber}
               onOpenEditForm={this.onOpenEditForm}
