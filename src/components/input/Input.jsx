@@ -1,5 +1,6 @@
 import React from 'react';
 import ErrorMessage from './ErrorMessage';
+import './Input.scss';
 
 class Input extends React.Component {
     onChange = (event) => {
@@ -14,18 +15,22 @@ class Input extends React.Component {
         switch (this.props.type) {
             case 1:
                 return (
-                    <div className="input-group mb-3">
-                        <label>{label}</label>
-                        {requireEle}
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder={`Input ${label}`}
-                            aria-describedby="button-addon2"
-                            value = {this.props.value.value}
-                            onChange={this.onChange}
-                        />
-                        {errorEle}
+                    <div className="input-group mb-3 d-flex">
+                        <div className="input-label">
+                            <label className="mr-2">{label}</label>
+                            {requireEle}
+                        </div>
+                        <div className="input-content">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder={`Input ${label}`}
+                                aria-describedby="button-addon2"
+                                value={this.props.value.value}
+                                onChange={this.onChange}
+                            />
+                            {errorEle}
+                        </div>
                     </div>
                 );
             default:

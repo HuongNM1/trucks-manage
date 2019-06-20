@@ -19,12 +19,12 @@ class InputForm extends React.Component {
             Object.keys(validate).forEach((key, idx) => {
                 if (null === errorCode) {
                     if ('require' === key) {
-                        if(validateFunc['isEmpty'](value)){
+                        if (validateFunc['isEmpty'](value)) {
                             errorCode = 0;
                         }
                     }
                     if ('maxLength' === key) {
-                        if(validateFunc['outOfLength'](value, validate[key])){
+                        if (validateFunc['outOfLength'](value, validate[key])) {
                             errorCode = 1;
                         }
                     }
@@ -72,11 +72,10 @@ class InputForm extends React.Component {
     render() {
         let trucks = [
             { type: 1, attr: 'truck-palte' },
+            { type: 1, attr: 'cargo-type' },
+            { type: 1, attr: 'driver' },
             { type: 1, attr: 'truck-type' },
-            { type: 1, attr: 'production-year' },
             { type: 1, attr: 'price' },
-            { type: 1, attr: 'status' },
-            { type: 1, attr: 'dimention' }
         ];
         let truckEles = [];
         trucks.forEach((value, idx) => {
@@ -90,9 +89,10 @@ class InputForm extends React.Component {
         })
 
         let infor = [
-            { type: 1, attr: 'cargo-type' },
-            { type: 1, attr: 'driver' },
+            { type: 1, attr: 'dimention' },
             { type: 1, attr: 'parking-address' },
+            { type: 1, attr: 'production-year' },
+            { type: 1, attr: 'status' },
             { type: 1, attr: 'description' }
         ];
         let inforEles = [];
@@ -107,26 +107,27 @@ class InputForm extends React.Component {
         })
         let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'
         return (
-            <div className="container input-form-cover">
-                <div className="row header">
-                    <h3>{headerTitle}</h3>
-                    <button type="button" className="btn btn-outline-danger" onClick={this.onClose}>X</button>
-                </div>
-                <div className="row body">
-                    <div className="col-6 mr-1">
-                        <span>Truck</span>
-                        {truckEles}
+            <div>
+                <div className="input-form-cover">
+                    <div className="header p-2 mb-3">
+                        <div className="header-title">{headerTitle}</div>
+                        <button type="button" className="btn btn-outline-danger close-header-button" onClick={this.onClose}>X</button>
                     </div>
-                    <div className="col-6">
-                        <span>Information</span>
-                        {inforEles}
+                    <div className="body">
+                        <div className="left-content mr-1">
+                            {truckEles}
+                        </div>
+                        <div className="right-content">
+                            {inforEles}
+                        </div>
                     </div>
-                </div>
+                    <div className="footer p-2">
+                        <button type="button" className="btn btn-outline-warning mr-1" onClick={this.onClose}>Cancel</button>
+                        <button type="button" className="btn btn-outline-success" onClick={this.onSubmit}>Submit</button>
+                    </div>
 
-                <div className="row footer">
-                    <button type="button" className="btn btn-outline-warning mr-1" onClick={this.onClose}>Cancel</button>
-                    <button type="button" className="btn btn-outline-success" onClick={this.onSubmit}>Submit</button>
                 </div>
+                <div className="backdrop"></div>
             </div>
         );
     }
