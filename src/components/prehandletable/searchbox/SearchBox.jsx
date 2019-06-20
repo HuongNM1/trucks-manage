@@ -22,7 +22,7 @@ class SearchBox extends React.Component {
         const searchIcon = <FontAwesomeIcon icon={faSearch} />
         return (
             <div className="input-group mb-3">
-                <Dropdown value={this.props.value} getSearchBy={this.getSearchBy} />
+                {/* <Dropdown value={this.props.value} getSearchBy={this.getSearchBy} /> */}
                 <input
                     type="text"
                     className="form-control"
