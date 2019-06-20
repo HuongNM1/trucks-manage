@@ -46,7 +46,7 @@ class Dropdown extends React.Component {
             }
             return (
                 <div className={"dropdown " + this.state.showDropdownClass}>
-                    <button className="btn btn-secondary dropdown-toggle"
+                    <button className="btn btn-outline-primary dropdown-toggle"
                         type="button" id="dropdownMenu2"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -56,7 +56,9 @@ class Dropdown extends React.Component {
                         }}>
                         {this.state.dropdownTitle}
                     </button>
-                    <div className={"dropdown-menu " + this.state.showDropdownClass} aria-labelledby="dropdownMenu2">
+                    <div
+                        className={"dropdown-menu " + this.state.showDropdownClass}
+                        aria-labelledby="dropdownMenu2">
                         <button key={'all'}
                             className="dropdown-item"
                             type="button"

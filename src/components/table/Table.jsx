@@ -14,6 +14,7 @@ class Table extends React.Component {
                     <Header value={this.props.header || []} />
                     <Body
                         value={this.props.dataList || []}
+                        onOpenEditForm={this.props.onOpenEditForm}
                     />
                 </table>
             </div>

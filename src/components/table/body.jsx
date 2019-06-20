@@ -24,8 +24,10 @@ class Body extends React.Component {
                 <tr key={`${this.props.value[i].id}-${i}`}>
                     {cells}
                     <td className="d-flex">
-                        <button type="button" className="btn btn-warning">Edit</button>
-                        <button type="button" className="btn btn-danger">Delete</button>
+                        <button type="button" className="btn btn-outline-warning mr-1"
+                            onClick={()=>{this.props.onOpenEditForm(this.props.value[i].id)}}
+                            >Edit</button>
+                        <button type="button" className="btn btn-outline-danger">Delete</button>
                     </td>
                 </tr>
             );

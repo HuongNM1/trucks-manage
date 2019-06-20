@@ -1,8 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import Search from './components/searchbox/SearchBox';
+import PrehandleTable from './components/prehandletable/PrehandleTable';
 import Table from './components/table/Table';
 import Load from './components/Load';
+import InputForm from './components/form/InputForm';
+import TruckModel from './services/truckModel';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -16,8 +19,6 @@ class App extends React.Component {
       load: true,
       dataFilterList: []
     }
-
-    // this.searchBy = this.searchBy.bind(this);
   }
 
 
@@ -32,7 +33,11 @@ class App extends React.Component {
         mapping: result.data['mapping'],
         attributesInum: result.data['attributesInum'],
         load: false,
-        dataFilterList: result.data['dataList']
+        dataFilterList: result.data['dataList'],
+        openInputForm: false,
+        typeInputForm: 0,
+        dataModel: null,
+        formType: 0,
       });
     }
   }
@@ -59,25 +64,57 @@ class App extends React.Component {
     this.setState({ dataFilterList: dataFilterList });
   }
 
+  addTruck = () => {
+    this.setState({
+      openInputForm: true
+    })
+  }
+
+  onOpenEditForm = (truckId)=>{
+    console.log(truckId);
+    this.setState({
+      openInputForm: true,
+      formType: 1
+    })
+  }
+
+  onSubmitForm = (dataModel)=>{
+    console.log(dataModel);
+  }
+
+  onCloseFrom = ()=>{
+    this.setState({
+      openInputForm: false
+    })
+  }
+
+
   render() {
+    let content = null;
     if (this.state.load) {
-      return (
+      content =
         <div className="container">
           <Load />
-        </div>
-      );
-    }
-    return (
-      <div className="container">
+        </div>;
+    } else {
+      let inputForm = this.state.openInputForm ?
         <div className="row">
-          <Search search={this.searchBy} value={this.state.header} />
-          <Table
-            header={this.state.header}
-            dataList={this.state.dataFilterList}
-          />
-        </div>
-      </div>
-    );
+          <InputForm onSubmit={this.onSubmitForm} onClose={this.onCloseFrom} formType={this.state.formType}/>
+        </div> : '';
+      content =
+        <div className="container">
+          {inputForm}
+          <div className="row">
+            <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
+            <Table
+              header={this.state.header}
+              dataList={this.state.dataFilterList}
+              onOpenEditForm={this.onOpenEditForm}
+            />
+          </div>
+        </div>;
+    }
+    return content;
   }
 }
 
