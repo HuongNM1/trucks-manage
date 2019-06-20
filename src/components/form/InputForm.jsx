@@ -28,6 +28,16 @@ class InputForm extends React.Component {
                             errorCode = 1;
                         }
                     }
+                    if('number' === validate['type']){
+                        if (validateFunc['isNaN'](value)) {
+                            errorCode = 2;
+                        }
+                    }                    
+                    if ('maxValue' === key) {
+                        if (validateFunc['outOfMaxValue'](value, validate[key])) {
+                            errorCode = 3;
+                        }
+                    }
                 }
             });
         }

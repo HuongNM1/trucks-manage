@@ -42,7 +42,7 @@ const Truck = {
         label: 'Price',
         validate: {
             require: true,
-            type: 'string',
+            type: 'number',
             searchAble: true,
             sortAble: true
         }
@@ -76,6 +76,10 @@ const Truck = {
     },
     'production-year': {
         label: 'Product Year',
+        validate: {
+            type: 'number',
+            maxValue: new Date().getFullYear()
+        }
     },
     'status': {
         label: 'Status',

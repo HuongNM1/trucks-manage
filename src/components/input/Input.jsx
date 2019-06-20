@@ -10,7 +10,7 @@ class Input extends React.Component {
         let { label, validate } = this.props.modelInfor;
         let requireEle = validate && validate.require ? <b className="require-star">*</b> : '';
         let errorEle = null !== this.props.value.errorCode ?
-            <ErrorMessage errorCode={this.props.value.errorCode} label={label} /> :
+            <ErrorMessage errorCode={this.props.value.errorCode} label={label} validate={validate}/> :
             '';
         let inputElem = '';
         switch (this.props.type) {

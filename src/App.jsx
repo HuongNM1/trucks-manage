@@ -55,12 +55,12 @@ class App extends React.Component {
         header: result.data['header'],
         dataList: result.data['dataList'],
         mapping: result.data['mapping'],
-        pageNumber: result.data['dataList'].length/this.state.numberItemOnePage,
+        pageNumber: result.data['dataList'].length / this.state.numberItemOnePage,
         pageIdx: 0,
         attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList'],
-        dataListPage: result.data['dataList'].slice(this.state.pageIdx, this.state.pageIdx+this.state.numberItemOnePage)
+        dataListPage: result.data['dataList'].slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
       });
     }
   }
@@ -85,15 +85,21 @@ class App extends React.Component {
       }
     })
     this.setState(
-      { 
+      {
         dataFilterList: dataFilterList,
-        pageNumber: dataFilterList.length/this.state.numberItemOnePage,
-        dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx+this.state.numberItemOnePage)
+        pageNumber: dataFilterList.length / this.state.numberItemOnePage,
+        dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
       }
-      );
+    );
   }
 
+  resetDataModel = () => {
+    Object.keys(TruckModel).forEach((key, idx) => {
+      this.state.dataModel[key] = { value: '', errorCode: null };
+    });
+  }
   addTruck = () => {
+    this.resetDataModel();
     this.setState({
       openInputForm: true,
       formType: 0
@@ -119,7 +125,7 @@ class App extends React.Component {
   }
 
   onOpenEditForm = (truckId) => {
-    let dataModel ;
+    let dataModel;
     for (let i = 0; i < this.state.dataList.length; i++) {
       if (truckId === this.state.dataList[i]['id']) {
         dataModel = this.convertItemToModel(this.state.dataList[i]);
@@ -213,14 +219,14 @@ class App extends React.Component {
     })
   }
 
-  pagingHandleList(page){
+  pagingHandleList(page) {
 
   }
 
   onChangePage = (pageIdx) => {
     this.setState({
       pageIdx: pageIdx,
-      dataListPage: this.state.dataFilterList.slice(pageIdx, pageIdx+this.state.numberItemOnePage)
+      dataListPage: this.state.dataFilterList.slice(pageIdx, pageIdx + this.state.numberItemOnePage)
     })
   }
 

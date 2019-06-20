@@ -4,6 +4,12 @@ const validate = {
     },
     outOfLength: (value, maxLength)=>{
         return maxLength < value.length;
+    },
+    isNaN: (value)=>{
+        return isNaN(value);
+    },
+    outOfMaxValue: (value, maxValue)=>{
+        return value > maxValue;
     }
 }
 export default validate;
