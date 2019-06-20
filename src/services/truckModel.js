@@ -88,6 +88,7 @@ const Truck = {
     },
     'description': {
         label: 'Description',
+        showCounter: true,
         validate: {
             type: 'string',
             maxLength: 200,

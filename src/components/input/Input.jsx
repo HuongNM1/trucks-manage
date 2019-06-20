@@ -25,14 +25,22 @@ class Input extends React.Component {
                 />;
                 break;
             case 2:
-                inputElem = <textarea
-                    className="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    placeholder={`Input ${label}`}
-                    value={this.props.value.value}
-                    onChange={this.onChange}>
-                </textarea>;
+
+                let counter = this.props.modelInfor.showCounter ? <div className="show-counter-chars float-right">
+                    <span>{`${this.props.value.value.length}/${this.props.modelInfor.validate.maxLength}`}</span>
+                </div> : '';
+                inputElem =
+                    <div>
+                        <textarea
+                            className="form-control"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
+                            placeholder={`Input ${label}`}
+                            value={this.props.value.value}
+                            onChange={this.onChange}>
+                        </textarea>
+                        {counter}
+                    </div>;
                 break;
             case 3:
                 inputElem =
@@ -45,7 +53,7 @@ class Input extends React.Component {
                     </select>;
                 break;
             case 4:
-            //list checkbox
+                //list checkbox
                 break;
             default:
                 inputElem = '';
