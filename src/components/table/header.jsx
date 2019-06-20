@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Td from '../td/td';
-import './header.scss';
+import Td from './td';
 
 /**
  * Header component
@@ -19,6 +18,7 @@ class Header extends React.Component {
             <thead className="thead-dark">
                 <tr>
                     {this.renderHeader()}
+                    <th>Action</th>
                 </tr>
             </thead>
         );

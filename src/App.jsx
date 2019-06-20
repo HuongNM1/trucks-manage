@@ -17,7 +17,7 @@ class App extends React.Component {
       dataFilterList: []
     }
 
-    this.searchBy = this.searchBy.bind(this);
+    // this.searchBy = this.searchBy.bind(this);
   }
 
 
@@ -29,6 +29,8 @@ class App extends React.Component {
       self.setState({
         header: result.data['header'],
         dataList: result.data['dataList'],
+        mapping: result.data['mapping'],
+        attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList']
       });
@@ -39,7 +41,7 @@ class App extends React.Component {
     this.getData()
   }
 
-  searchBy(searchBy, searchString) {
+  searchBy = (searchBy, searchString) => {
     let { dataList, dataFilterList, header } = this.state;
     dataFilterList = dataList.filter((value, index) => {
       if ('' === searchBy) {
@@ -69,7 +71,10 @@ class App extends React.Component {
       <div className="container">
         <div className="row">
           <Search search={this.searchBy} value={this.state.header} />
-          <Table header={this.state.header} dataList={this.state.dataFilterList} />
+          <Table
+            header={this.state.header}
+            dataList={this.state.dataFilterList}
+          />
         </div>
       </div>
     );

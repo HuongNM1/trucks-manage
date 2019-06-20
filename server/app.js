@@ -5,17 +5,24 @@ const port = 3008
 
 let data = {
     header: [
-        { text: 'Truck plate', key: 'truck-palte' },
-        { text: 'Cargo type', key: 'cargo-type' },
-        { text: 'Driver', key: 'driver' },
-        { text: 'Truck type', key: 'truck-type' },
-        { text: 'Price', key: 'price' },
+        { text: 'Truck plate', key: 'truck-palte', searchAble: true, sortAble: true },
+        { text: 'Cargo type', key: 'cargo-type', searchAble: true, sortAble: true },
+        { text: 'Driver', key: 'driver', searchAble: true, sortAble: true },
+        { text: 'Truck type', key: 'truck-type', searchAble: true, sortAble: true },
+        { text: 'Price', key: 'price', searchAble: true, sortAble: true },
         { text: 'Dimension', key: 'dimention', note: '(L-W-H)' },
-        { text: 'Parking address', key: 'parking-address' },
-        { text: 'Production year', key: 'production-year' },
-        { text: 'Status', key: 'status' },
+        { text: 'Parking address', key: 'parking-address', searchAble: true, sortAble: true },
+        { text: 'Production year', key: 'production-year', searchAble: true, sortAble: true },
+        { text: 'Status', key: 'status', searchAble: true, sortAble: true },
         { text: 'Description', key: 'description' }
     ],
+    mapping: [
+        {
+            attribute: 'status',
+            mappingValues: [{ value: 0, text: 'New' }, { value: 1, text: 'In-use' }, { value: -1, text: 'Stopper' }]
+        }
+    ],
+    attributesInum:['status'],
     dataList: [
         {
             'id': 1,
@@ -31,7 +38,7 @@ let data = {
             },
             'parking-address': 'ha noi',
             'production-year': '2019',
-            'status': 1,
+            'status': 'New',
             'description': 'no'
         },
         {
@@ -48,7 +55,7 @@ let data = {
             },
             'parking-address': 'ha noi',
             'production-year': '2019',
-            'status': 1,
+            'status': 'In-use',
             'description': 'no'
         },
         {
@@ -65,7 +72,7 @@ let data = {
             },
             'parking-address': 'ha noi',
             'production-year': '2019',
-            'status': 1,
+            'status': 'Stopping',
             'description': 'no'
         }
     ]

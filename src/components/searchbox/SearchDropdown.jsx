@@ -29,18 +29,20 @@ class Dropdown extends React.Component {
         let dropItems = [];
         if (Array.isArray(this.props.value) && 0 < this.props.value.length) {
             for (let i = 0; i < this.props.value.length; i++) {
-                dropItems.push(
-                    <button key={i}
-                        className="dropdown-item"
-                        type="button"
-                        onClick={() => {
-                            this.props.getSearchBy(this.props.value[i].key);
-                            this.toggleShow();
-                            this.setState({ dropdownTitle: this.props.value[i].text })
-                        }}
-                    >
-                        {this.props.value[i].text}
-                    </button>);
+                if (this.props.value[i].searchAble || 'true' === this.props.value[i].searchAble) {
+                    dropItems.push(
+                        <button key={i}
+                            className="dropdown-item"
+                            type="button"
+                            onClick={() => {
+                                this.props.getSearchBy(this.props.value[i].key);
+                                this.toggleShow();
+                                this.setState({ dropdownTitle: this.props.value[i].text })
+                            }}
+                        >
+                            {this.props.value[i].text}
+                        </button>);
+                }
             }
             return (
                 <div className={"dropdown " + this.state.showDropdownClass}>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './td.scss';
 /**
  * TD component
  */
@@ -9,11 +8,16 @@ class Td extends React.Component {
             return this.props.value;
         } else if ('object' === typeof (this.props.value)) {
             if (this.props.value.text) {
+                if(this.props.value.note){
+                    return `${this.props.value.text} ${this.props.value.note}`;
+                }
                 return this.props.value.text;
             } else {
+                let val = [];
                 Object.keys(this.props.value).forEach((key) => {
-                    return this.props.value[key];
+                    val.push(this.props.value[key]);
                 });
+                return val.join('-');
             }
         }
     }
