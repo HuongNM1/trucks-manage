@@ -245,7 +245,9 @@ class App extends React.Component {
             onSubmit={this.onSubmitForm}
             onClose={this.onCloseFrom}
             formType={this.state.formType}
-            value={this.state.dataModel} />
+            value={this.state.dataModel}
+            mapping={this.state.mapping}
+            />
         </div> : '';
       content =
         <div className="container cover">

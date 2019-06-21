@@ -7,10 +7,11 @@ class Input extends React.Component {
         this.props.onChange(this.props.attribute, event.target.value);
     }
     render() {
+        console.log(this.props.mapping);
         let { label, validate } = this.props.modelInfor;
         let requireEle = validate && validate.require ? <b className="require-star">*</b> : '';
         let errorEle = null !== this.props.value.errorCode ?
-            <ErrorMessage errorCode={this.props.value.errorCode} label={label} validate={validate}/> :
+            <ErrorMessage errorCode={this.props.value.errorCode} label={label} validate={validate} /> :
             '';
         let inputElem = '';
         switch (this.props.type) {
@@ -43,13 +44,25 @@ class Input extends React.Component {
                     </div>;
                 break;
             case 3:
+                let optionList = [];
+                if (this.props.mapping && Array.isArray(this.props.mapping) && 0 < this.props.mapping.length) {
+                    for (let i = 0; i < this.props.mapping.length; i++) {
+                        if (this.props.mapping[i].attribute === this.props.attribute) {
+                            for (let j = 0; j < this.props.mapping[i].mappingValues.length; j++) {
+                                optionList.push(
+                                    <option value={this.props.mapping[i].mappingValues[j].value}>
+                                        {this.props.mapping[i].mappingValues[j].text}
+                                    </option>
+                                );
+                            }
+                        }
+                    }
+                }
                 inputElem =
                     <select name="carlist"
                         value={this.props.value.value}
                         onChange={this.onChange}>
-                        <option value={0} checked>New</option>
-                        <option value={1}>In-use</option>
-                        <option value={-1}>Stopping</option>
+                        {optionList}
                     </select>;
                 break;
             case 4:

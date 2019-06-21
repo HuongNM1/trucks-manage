@@ -96,7 +96,9 @@ class InputForm extends React.Component {
                     attribute={value.attr}
                     modelInfor={TruckModel[value.attr]}
                     onChange={this.onChange}
-                    value={this.state[value.attr]} />);
+                    value={this.state[value.attr]}
+                    mapping={this.props.mapping}
+                    />);
         })
 
         let infor = [
