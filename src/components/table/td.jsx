@@ -4,32 +4,46 @@ import * as React from 'react';
  * TD component
  */
 class Td extends React.Component {
+    parseStringnumberToNumber = (val) => {
+        try {
+            return (val.toString().indexOf('.') !== -1) ? parseFloat(val) : parseInt(val);
+        } catch (e) {
+            console.log(e);
+            return val;
+        }
+    }
+    
     handleValue() {
-        if ('string' === typeof this.props.value) {
+        // Handle parse value
+        let { value } = this.props;
+        if (null != value && '' !== value && !isNaN(value) && 'string' === typeof value) {
+            value = this.parseStringnumberToNumber(value);
+        }
+        //
+        if ('string' === typeof value) {
             return this.props.value;
-        } else if ('number' === typeof this.props.value) {
+        } else if ('number' === typeof value) {
             let mapping = this.props.mapping;
             if (null != mapping &&
                 Array.isArray(mapping) &&
                 0 < mapping.length) {
                 for (let i = 0; i < mapping.length; i++) {
-                    if (this.props.value === mapping[i].value) {
-                        
+                    if (value === mapping[i].value) {
                         return mapping[i].text;
                     }
                 }
             }
-            return this.props.value;
-        } else if ('object' === typeof (this.props.value)) {
-            if (this.props.value.text) {
-                if (this.props.value.note) {
-                    return `${this.props.value.text} ${this.props.value.note}`;
+            return value;
+        } else if ('object' === typeof (value)) {
+            if (value.text) {
+                if (value.note) {
+                    return `${value.text} ${value.note}`;
                 }
-                return this.props.value.text;
+                return value.text;
             } else {
                 let val = [];
-                Object.keys(this.props.value).forEach((key) => {
-                    val.push(this.props.value[key]);
+                Object.keys(value).forEach((key) => {
+                    val.push(value[key]);
                 });
                 return val.join('-');
             }

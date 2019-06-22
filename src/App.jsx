@@ -4,7 +4,7 @@ import PrehandleTable from './components/prehandletable/PrehandleTable';
 import Table from './components/table/Table';
 import Load from './components/Load';
 import InputForm from './components/form/InputForm';
-import TruckModel from './services/truckmodel';
+import TruckModel from './services/TruckModel';
 
 
 class App extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../input/Input';
-import TruckModel from '../../services/truckmodel';
+import TruckModel from '../../services/TruckModel';
 import validateFunc from './Validate';
 import './InputForm.scss';
 
@@ -56,20 +56,31 @@ class InputForm extends React.Component {
     onSubmit = () => {
         let error = false;
         let errorCode = null;
+        let value = '';
         Object.keys(this.state).forEach((key, idx) => {
-            errorCode = this.validateInputData(key, this.state[key].value);
-            if (null != this.state[key].errorCode) {
+            value = this.state[key].value.toString().trim();
+            errorCode = this.validateInputData(key, value);
+            if (null != this.state[key].errorCode) { // ?????
                 error = true;
                 console.log('error');
             } else if (null != errorCode) {
                 error = true;
                 this.setState({
-                    [key]: { errorCode: errorCode, value: this.state[key].value }
+                    [key]: { errorCode: errorCode, value: value }
                 })
             }
+
         })
         if (!error) {
-            this.props.onSubmit(this.state);
+            let values = {};
+            Object.keys(this.state).forEach((key, idx) => {
+                if (this.state.value) {
+                    values[key] = { errorCode: this.state.errorCode, value: this.state.value.toString().trim() }
+                } else {
+                    values[key] = { errorCode: this.state.errorCode, value: this.state.value };
+                }
+            });
+            this.props.onSubmit(values);
             this.props.onClose();
         }
     }
@@ -78,7 +89,7 @@ class InputForm extends React.Component {
         this.props.onClose();
     }
 
-    getInputEles = ()=>{
+    getInputEles = () => {
         let trucks = [
             { type: 1, attr: 'truck-palte' },
             { type: 1, attr: 'cargo-type' },
@@ -87,7 +98,7 @@ class InputForm extends React.Component {
             { type: 1, attr: 'dimention-l' },
             { type: 1, attr: 'dimention-w' },
             { type: 1, attr: 'dimention-h' },
-            
+
             { type: 1, attr: 'price' },
             { type: 1, attr: 'production-year' },
             { type: 3, attr: 'status' },
@@ -104,15 +115,15 @@ class InputForm extends React.Component {
                 onChange={this.onChange}
                 value={this.state[value.attr]}
             />
-            if(3 === value.type){
+            if (3 === value.type) {
                 input = <Input key={`add-truck-${idx}`}
-                type={value.type}
-                attribute={value.attr}
-                modelInfor={TruckModel[value.attr]}
-                onChange={this.onChange}
-                value={this.state[value.attr]}
-                mapping={this.props.mapping || []}
-            />
+                    type={value.type}
+                    attribute={value.attr}
+                    modelInfor={TruckModel[value.attr]}
+                    onChange={this.onChange}
+                    value={this.state[value.attr]}
+                    mapping={this.props.mapping || []}
+                />
             }
             truckEles.push(input);
         })
@@ -121,7 +132,7 @@ class InputForm extends React.Component {
 
     render() {
         let truckElems = this.getInputEles();
-        let truckEles1 = truckElems.slice(0,7);
+        let truckEles1 = truckElems.slice(0, 7);
         let truckEles2 = truckElems.slice(7);
         let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'
         return (

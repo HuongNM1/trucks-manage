@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Td from './Td';
-import TruckModel from '../../services/truckmodel';
+import TruckModel from '../../services/TruckModel';
 
 /**
  * Header component

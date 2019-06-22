@@ -6,19 +6,8 @@ import SelectInput from './SelectInput';
 import './Input.scss';
 
 class Input extends React.Component {
-    hanldeNumberOutValue = (val)=>{
-        if (!isNaN(val) && 'string' === typeof val) {
-            try {
-                return (val.toString().indexOf('.') !== -1) ? parseFloat(val) : parseInt(val);
-            } catch (e) {
-                console.log(e);
-                return val;
-            }
-        }
-        return val; 
-    }
     onChange = (event) => {
-        this.props.onChange(this.props.attribute, this.hanldeNumberOutValue(event.target.value));
+        this.props.onChange(this.props.attribute, event.target.value);
     }
     getInputElem = () => {
         let { label } = this.props.modelInfor;
