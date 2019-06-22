@@ -6,7 +6,8 @@ const port = 3008
 let data = {
     header: [
         { text: 'Truck plate', key: 'truck-palte', searchAble: true, sortAble: true },
-        { text: 'Cargo type', key: 'cargo-type', searchAble: true, sortAble: true },
+        { text: 'Cargo type', key: 'cargo-type', searchAble: false, sortAble: true },
+        { text: 'Cargo type', key: 'cargo-type-show', searchAble: true, sortAble: true },
         { text: 'Driver', key: 'driver', searchAble: true, sortAble: true },
         { text: 'Truck type', key: 'truck-type', searchAble: true, sortAble: true },
         { text: 'Price', key: 'price', searchAble: true, sortAble: true },
@@ -44,6 +45,7 @@ let data = {
             'id': 1,
             'truck-palte': '30A-50948',
             'cargo-type': [0, 1, 2, 3],
+            'cargo-type-show': 'Computer, Vagetable, Kid toys, Furniture',
             'driver': 'Nguyen Van A',
             'truck-type': '5 ton',
             'price': 1000000000,
@@ -59,7 +61,8 @@ let data = {
         {
             'id': 2,
             'truck-palte': '31A-50900',
-            'cargo-type': [0, 1, 2, 3],
+            'cargo-type': [0, 1, 2, 4],
+            'cargo-type-show': 'Computer, Vagetable, Kid toys, Cars',
             'driver': 'Nguyen Van A',
             'truck-type': '15 ton',
             'price': 2000000000,

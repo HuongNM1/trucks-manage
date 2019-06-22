@@ -36,11 +36,7 @@ class MultiCheckbox extends React.Component {
         }
         let idx = data.indexOf(value);
         if (idx === -1) {
-            try {
-                data.push(value);
-            } catch (e) {
-                console.log('cannot push');
-            }
+            data.push(value);
         } else {
             data.splice(idx, 1);
         }

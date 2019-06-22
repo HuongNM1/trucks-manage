@@ -24,9 +24,32 @@ const Truck = {
             sortAble: true
         }
     },
-    'cargo-type-show':{
+    'cargo-type-show': {
         label: 'Cargo Type',
         value: '',
+        showValue: (model, key = '', value = '', mapping = []) => {
+            console.log(key, value, mapping);
+            let valueForShow = [];
+            if (value && Array.isArray(value) && 0 < value.length) {
+                for (let i = 0; i < value.length; i++) {
+                    for (let j = 0; j < mapping.length; j++) {
+                        try {
+                            if (parseInt(value[i]) === mapping[j].value) {
+                                valueForShow.push(mapping[j].text);
+                                break;
+                            }
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                }
+            }
+            let valueStr = '';
+            if (0 < valueForShow.length) {
+                valueStr = valueForShow.join(', ')
+            }
+            return valueStr;
+        },
         showOnList: true,
         showOnInputForm: false,
     },
@@ -79,7 +102,8 @@ const Truck = {
     },
     'dimention': {
         label: 'Dimention',
-        showValue: (model) => { return `${model['dimention-l'].value}-${model['dimention-w'].value}-${model['dimention-h'].value}` },
+        value: '',
+        showValue: (model, key = '', value = '', mapping = []) => { return `${model['dimention-l'].value}-${model['dimention-w'].value}-${model['dimention-h'].value}` },
         showOnList: true,
         showOnInputForm: false,
     },
