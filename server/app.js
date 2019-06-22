@@ -16,13 +16,26 @@ let data = {
         { text: 'Status', key: 'status', searchAble: true, sortAble: true },
         { text: 'Description', key: 'description' }
     ],
-    mapping: [
-        {
-            attribute: 'status',
-            mappingValues: [{ value: 0, text: 'New' }, { value: 1, text: 'In-use' }, { value: -1, text: 'Stopper' }]
-        }
-    ],
-    attributesInum:['status'],
+    mapping: {
+        'status': [{ value: 0, text: 'New' }, { value: 1, text: 'In-use' }, { value: -1, text: 'Stopper' }],
+        'cargo-type': [{
+            value: 0, text: 'Computer',
+            value: 1, text: 'Vagetable',
+            value: 2, text: 'Kid toys',
+            value: 3, text: 'Furniture',
+            value: 4, text: 'Cars',
+            value: 5, text: 'Motos',
+            value: 6, text: 'Cosmetic',
+            value: 7, text: 'Medicine',
+            value: 8, text: 'Food',
+            value: 9, text: 'Drink',
+            value: 10, text: 'Meat',
+            value: 11, text: 'Animal',
+            value: 12, text: 'Fashion',
+            value: 13, text: 'Machine'
+        }]
+    },
+    attributesInum: ['status'],
     dataList: [
         {
             'id': 1,
@@ -58,125 +71,125 @@ let data = {
             'status': 'In-use',
             'description': 'no'
         },
-        {
-            'id': 3,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 4,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 5,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 6,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 7,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 8,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        },
-        {
-            'id': 9,
-            'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
-            'driver': 'Nguyen Van C',
-            'truck-type': '50 ton',
-            'price': '3000000000',
-            'dimention': {
-                'l': 200,
-                'w': 10,
-                'h': 5
-            },
-            'parking-address': 'ha noi',
-            'production-year': '2019',
-            'status': 'Stopping',
-            'description': 'no'
-        }
+        // {
+        //     'id': 3,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 4,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 5,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 6,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 7,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 8,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // },
+        // {
+        //     'id': 9,
+        //     'truck-palte': '30A-50948',
+        //     'cargo-type': 'Computer',
+        //     'driver': 'Nguyen Van C',
+        //     'truck-type': '50 ton',
+        //     'price': '3000000000',
+        //     'dimention': {
+        //         'l': 200,
+        //         'w': 10,
+        //         'h': 5
+        //     },
+        //     'parking-address': 'ha noi',
+        //     'production-year': '2019',
+        //     'status': 'Stopping',
+        //     'description': 'no'
+        // }
     ]
 };
 

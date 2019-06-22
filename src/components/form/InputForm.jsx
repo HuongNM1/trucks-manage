@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../input/Input';
-import TruckModel from '../../services/truckModel';
-import validateFunc from './validate';
+import TruckModel from '../../services/truckmodel';
+import validateFunc from './Validate';
 import './InputForm.scss';
 
 class InputForm extends React.Component {
@@ -28,11 +28,11 @@ class InputForm extends React.Component {
                             errorCode = 1;
                         }
                     }
-                    if('number' === validate['type']){
+                    if ('number' === validate['type']) {
                         if (validateFunc['isNaN'](value)) {
                             errorCode = 2;
                         }
-                    }                    
+                    }
                     if ('maxValue' === key) {
                         if (validateFunc['outOfMaxValue'](value, validate[key])) {
                             errorCode = 3;
@@ -78,7 +78,7 @@ class InputForm extends React.Component {
         this.props.onClose();
     }
 
-    render() {
+    getInputEles = ()=>{
         let trucks = [
             { type: 1, attr: 'truck-palte' },
             { type: 1, attr: 'cargo-type' },
@@ -87,37 +87,42 @@ class InputForm extends React.Component {
             { type: 1, attr: 'dimention-l' },
             { type: 1, attr: 'dimention-w' },
             { type: 1, attr: 'dimention-h' },
-        ];
-        let truckEles = [];
-        trucks.forEach((value, idx) => {
-            truckEles.push(
-                <Input key={`add-truck-${idx}`}
-                    type={value.type}
-                    attribute={value.attr}
-                    modelInfor={TruckModel[value.attr]}
-                    onChange={this.onChange}
-                    value={this.state[value.attr]}
-                    mapping={this.props.mapping}
-                    />);
-        })
-
-        let infor = [
+            
             { type: 1, attr: 'price' },
             { type: 1, attr: 'production-year' },
             { type: 3, attr: 'status' },
             { type: 2, attr: 'parking-address' },
             { type: 2, attr: 'description' }
         ];
-        let inforEles = [];
-        infor.forEach((value, idx) => {
-            inforEles.push(
-                <Input key={`add-infor-${idx}`}
-                    type={value.type}
-                    attribute={value.attr}
-                    modelInfor={TruckModel[value.attr]}
-                    onChange={this.onChange}
-                    value={this.state[value.attr]} />);
+        let truckEles = [];
+        let input = '';
+        trucks.forEach((value, idx) => {
+            input = <Input key={`add-truck-${idx}`}
+                type={value.type}
+                attribute={value.attr}
+                modelInfor={TruckModel[value.attr]}
+                onChange={this.onChange}
+                value={this.state[value.attr]}
+            />
+            if(3 === value.type){
+                input = <Input key={`add-truck-${idx}`}
+                type={value.type}
+                attribute={value.attr}
+                modelInfor={TruckModel[value.attr]}
+                onChange={this.onChange}
+                value={this.state[value.attr]}
+                mapping={this.props.mapping || []}
+            />
+            }
+            truckEles.push(input);
         })
+        return truckEles;
+    }
+
+    render() {
+        let truckElems = this.getInputEles();
+        let truckEles1 = truckElems.slice(0,7);
+        let truckEles2 = truckElems.slice(7);
         let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'
         return (
             <div>
@@ -128,10 +133,10 @@ class InputForm extends React.Component {
                     </div>
                     <div className="body">
                         <div className="left-content mr-1">
-                            {truckEles}
+                            {truckEles1}
                         </div>
                         <div className="right-content">
-                            {inforEles}
+                            {truckEles2}
                         </div>
                     </div>
                     <div className="footer p-2">

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Table.scss';
-import Header from './header';
-import Body from './body';
+import Header from './Header';
+import Body from './Body';
 import Paging from './Paging';
 
 /**

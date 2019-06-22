@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Td from './td';
+import Td from './Td';
 
 /**
  * Body component

@@ -48,19 +48,19 @@ const Truck = {
         }
     },
     'dimention-l': {
-        label: 'Dimention-L',
+        label: 'Long Dimention',
         validate: {
             type: 'number',
         }
     },
     'dimention-w': {
-        label: 'Dimention-W',
+        label: 'Width Dimention',
         validate: {
             type: 'number',
         }
     },
     'dimention-h': {
-        label: 'Dimention-H',
+        label: 'Hight Dimention',
         validate: {
             type: 'number',
         }

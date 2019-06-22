@@ -4,7 +4,7 @@ import PrehandleTable from './components/prehandletable/PrehandleTable';
 import Table from './components/table/Table';
 import Load from './components/Load';
 import InputForm from './components/form/InputForm';
-import TruckModel from './services/truckModel';
+import TruckModel from './services/truckmodel';
 
 
 class App extends React.Component {
@@ -25,7 +25,9 @@ class App extends React.Component {
       formType: 0,
       pageIdx: 0,
       pageNumber: 1,
-      numberItemOnePage: 5
+      numberItemOnePage: 5,
+      searchBy: '',
+      searchString: ''
     }
 
     Object.keys(TruckModel).forEach((key, idx) => {
@@ -68,22 +70,21 @@ class App extends React.Component {
   componentDidMount() {
     this.getData()
   }
-
-  searchBy = (searchBy, searchString) => {
+  proccessDataShow(){
     let { dataList, dataFilterList, header } = this.state;
     dataFilterList = dataList.filter((value, index) => {
-      if ('' === searchBy) {
+      if ('' === this.state.searchBy) {
         for (let i = 0; i < header.length; i++) {
           if ('string' === typeof value[header[i].key] &&
-            value[header[i].key].toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+            value[header[i].key].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
             return true;
           }
         }
         return false;
       } else {
-        return value[searchBy].toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
+        return value[this.state.searchBy].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1;
       }
-    })
+    });
     this.setState(
       {
         dataFilterList: dataFilterList,
@@ -93,9 +94,24 @@ class App extends React.Component {
     );
   }
 
+  searchBy = (searchBy, searchString) => {
+    this.setState(
+      {
+        searchBy: searchBy,
+        searchString: searchString
+      }, ()=>{
+        this.proccessDataShow();
+      }
+    );
+  }
+
   resetDataModel = () => {
+    let dataModel = {};
     Object.keys(TruckModel).forEach((key, idx) => {
-      this.state.dataModel[key] = { value: '', errorCode: null };
+      dataModel[key] = { value: '', errorCode: null };
+    });
+    this.setState({
+      dataModel: dataModel
     });
   }
   addTruck = () => {
@@ -141,12 +157,11 @@ class App extends React.Component {
 
   getTextValue = (attribute, value) => {
     let { mapping } = this.state;
-    for (let i = 0; i < mapping.length; i++) {
-      if (mapping[i].attribute === attribute) {
-        for (let j = 0; j < mapping[i].mappingValues.length; j++) {
-          if (mapping[i].mappingValues[j]['value'] == value) {
-            return mapping[i].mappingValues[j]['text'];
-          }
+    let mappingValues = mapping[attribute];
+    if (mappingValues && Array.isArray(mappingValues) && 0 < mappingValues.length) {
+      for (let i = 0; i < mappingValues.length; i++) {
+        if (mappingValues[i]['value'] === value) {
+          return mappingValues[i]['text'];
         }
       }
     }
@@ -178,9 +193,6 @@ class App extends React.Component {
       let data = this.convertDataModel(dataModel);
       data['id'] = dataList[dataList.length - 1]['id'] + 1;
       dataList.push(data);
-      this.setState({
-        dataList: dataList
-      })
     } else if (1 === this.state.formType) {
       let data = this.convertDataModel(dataModel);
       for (let i = 0; i < dataList.length; i++) {
@@ -189,10 +201,8 @@ class App extends React.Component {
           break;
         }
       }
-      this.setState({
-        dataList: dataList
-      })
     }
+    this.proccessDataShow();
     sessionStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
@@ -247,7 +257,7 @@ class App extends React.Component {
             formType={this.state.formType}
             value={this.state.dataModel}
             mapping={this.state.mapping}
-            />
+          />
         </div> : '';
       content =
         <div className="container cover">
