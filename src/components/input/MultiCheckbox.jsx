@@ -5,7 +5,6 @@ class MultiCheckbox extends React.Component {
     constructor(props) {
         super(props);
         this.state = { data: props.value }
-        console.log(this.state);
     }
     createCheckboxes = () => {
         let { mapping, value } = this.props;
@@ -32,20 +31,17 @@ class MultiCheckbox extends React.Component {
 
     onChange = (value, checked) => {
         let { data } = this.state;
-        console.log(data);
         if (null == data || !Array.isArray(data)) {
             data = [];
         }
         let idx = data.indexOf(value);
         if (idx === -1) {
-            console.log('add');
             try {
                 data.push(value);
             } catch (e) {
                 console.log('cannot push');
             }
         } else {
-            console.log('remove');
             data.splice(idx, 1);
         }
         this.setState({

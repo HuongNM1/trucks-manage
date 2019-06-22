@@ -8,7 +8,6 @@ import './Input.scss';
 
 class Input extends React.Component {
     onChange = (event) => {
-        console.log(event);
         this.props.onChange(this.props.attribute, event.target.value);
     }
     getInputElem = () => {

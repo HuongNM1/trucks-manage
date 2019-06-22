@@ -58,7 +58,7 @@ class InputForm extends React.Component {
         let errorCode = null;
         let value = '';
         Object.keys(this.state).forEach((key, idx) => {
-            value = this.state[key].value.toString().trim();
+            value = null != this.state[key].value ? this.state[key].value.toString().trim(): this.state[key].value;
             errorCode = this.validateInputData(key, value);
             if (null != this.state[key].errorCode) { // ?????
                 error = true;
@@ -74,10 +74,10 @@ class InputForm extends React.Component {
         if (!error) {
             let values = {};
             Object.keys(this.state).forEach((key, idx) => {
-                if (this.state.value) {
-                    values[key] = { errorCode: this.state.errorCode, value: this.state.value.toString().trim() }
+                if (this.state[key].value) {
+                    values[key] = { errorCode: this.state[key].errorCode, value: this.state[key].value.toString().trim() }
                 } else {
-                    values[key] = { errorCode: this.state.errorCode, value: this.state.value };
+                    values[key] = { errorCode: this.state[key].errorCode, value: this.state[key].value };
                 }
             });
             this.props.onSubmit(values);
