@@ -16,3 +16,22 @@
     top: -16px;
     left: -12px;
 }
+.checkbox-cover{
+    overflow: auto;
+    border-radius: 3px;
+    max-height: 130px;
+    border: 1px solid #cccccc;
+    position: relative;
+    z-index: 2005;
+    .checkbox{
+        display: flex;
+        display: -webkit-flex; /* Safari */
+        align-items: center;
+        // line-height: 36px;
+        input{
+            width: 20px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+}

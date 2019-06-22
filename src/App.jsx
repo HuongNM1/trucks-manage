@@ -162,8 +162,8 @@ class App extends React.Component {
   getDataModelValue = (dataModel) => {
     let dataValue = {};
     Object.keys(dataModel).forEach((key, idx) => {
-      if ('function' === typeof TruckModel[key].setValue) {
-        dataValue[key] = TruckModel[key].setValue(dataModel);
+      if ('function' === typeof TruckModel[key].showValue) {
+        dataValue[key] = TruckModel[key].showValue(dataModel);
       } else {
         dataValue[key] = dataModel[key].value;
       }

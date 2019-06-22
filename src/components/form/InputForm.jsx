@@ -92,7 +92,7 @@ class InputForm extends React.Component {
     getInputEles = () => {
         let trucks = [
             { type: 1, attr: 'truck-palte' },
-            { type: 1, attr: 'cargo-type' },
+            { type: 4, attr: 'cargo-type' },
             { type: 1, attr: 'driver' },
             { type: 1, attr: 'truck-type' },
             { type: 1, attr: 'dimention-l' },
@@ -115,7 +115,7 @@ class InputForm extends React.Component {
                 onChange={this.onChange}
                 value={this.state[value.attr]}
             />
-            if (3 === value.type) {
+            if (-1 !== [3,4].indexOf(value.type)) {
                 input = <Input key={`add-truck-${idx}`}
                     type={value.type}
                     attribute={value.attr}

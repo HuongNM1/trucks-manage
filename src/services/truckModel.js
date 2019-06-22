@@ -27,6 +27,16 @@ const Truck = {
     'cargo-type': {
         label: 'Cargo Type',
         value: '',
+        // showValue: (model) => {
+        //     let listValueStr = 'No cargo type';
+        //     let valueArray = model['cargo-type'].value;
+        //     if (valueArray && Array.isArray(valueArray) && 0 < valueArray.length) {
+        //         for (let i = 0; i < valueArray.length; i++) {
+
+        //         }
+        //     }
+        //     return listValueStr;
+        // },
         errorCode: null,
         showOnList: true,
         showOnInputForm: true,
@@ -71,9 +81,9 @@ const Truck = {
             sortAble: true
         }
     },
-    'dimention':{
+    'dimention': {
         label: 'Dimention',
-        setValue: (model)=>{return `${model['dimention-l'].value}-${model['dimention-w'].value}-${model['dimention-h'].value}`},
+        showValue: (model) => { return `${model['dimention-l'].value}-${model['dimention-w'].value}-${model['dimention-h'].value}` },
         showOnList: true,
         showOnInputForm: false,
     },

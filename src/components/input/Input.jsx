@@ -3,10 +3,12 @@ import ErrorMessage from './ErrorMessage';
 import TextareaInput from './TextareaInput';
 import TextInput from './TextInput';
 import SelectInput from './SelectInput';
+import MultiCheckbox from './MultiCheckbox';
 import './Input.scss';
 
 class Input extends React.Component {
     onChange = (event) => {
+        console.log(event);
         this.props.onChange(this.props.attribute, event.target.value);
     }
     getInputElem = () => {
@@ -20,7 +22,7 @@ class Input extends React.Component {
                 return <SelectInput mapping={this.props.mapping[this.props.attribute]} onChange={this.onChange} value={this.props.value.value} />;
             case 4:
                 //list checkbox
-                break;
+                return <MultiCheckbox mapping={this.props.mapping[this.props.attribute]} onChange={this.onChange} value={this.props.value.value} />
             default:
                 return '';
         }

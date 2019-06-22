@@ -21,29 +21,29 @@ let data = {
     ],
     mapping: {
         'status': [{ value: 0, text: 'New' }, { value: 1, text: 'In-use' }, { value: -1, text: 'Stopper' }],
-        'cargo-type': [{
-            value: 0, text: 'Computer',
-            value: 1, text: 'Vagetable',
-            value: 2, text: 'Kid toys',
-            value: 3, text: 'Furniture',
-            value: 4, text: 'Cars',
-            value: 5, text: 'Motos',
-            value: 6, text: 'Cosmetic',
-            value: 7, text: 'Medicine',
-            value: 8, text: 'Food',
-            value: 9, text: 'Drink',
-            value: 10, text: 'Meat',
-            value: 11, text: 'Animal',
-            value: 12, text: 'Fashion',
-            value: 13, text: 'Machine'
-        }]
+        'cargo-type': [
+            { value: 0, text: 'Computer' },
+            { value: 1, text: 'Vagetable' },
+            { value: 2, text: 'Kid toys' },
+            { value: 3, text: 'Furniture' },
+            { value: 4, text: 'Cars' },
+            { value: 5, text: 'Motos' },
+            { value: 6, text: 'Cosmetic' },
+            { value: 7, text: 'Medicine' },
+            { value: 8, text: 'Food' },
+            { value: 9, text: 'Drink' },
+            { value: 10, text: 'Meat' },
+            { value: 11, text: 'Animal' },
+            { value: 12, text: 'Fashion' },
+            { value: 13, text: 'Machine' }
+        ]
     },
     attributesInum: ['status'],
     dataList: [
         {
             'id': 1,
             'truck-palte': '30A-50948',
-            'cargo-type': 'Computer',
+            'cargo-type': [0, 1, 2, 3],
             'driver': 'Nguyen Van A',
             'truck-type': '5 ton',
             'price': 1000000000,
@@ -59,7 +59,7 @@ let data = {
         {
             'id': 2,
             'truck-palte': '31A-50900',
-            'cargo-type': 'Computer',
+            'cargo-type': [0, 1, 2, 3],
             'driver': 'Nguyen Van A',
             'truck-type': '15 ton',
             'price': 2000000000,
