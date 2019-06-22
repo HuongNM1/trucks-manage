@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../input/Input';
-import TruckModel from '../../services/TruckModel';
+import TruckModel from '../../services/truckModel';
 import validateFunc from './Validate';
 import './InputForm.scss';
 
