@@ -1,12 +1,20 @@
 const Truck = {
     'id': {
         label: 'Id',
+        value: '',
+        errorCode: null,
+        showOnList: false,
+        showOnInputForm: false,
         validate: {
             unique: true
         }
     },
     'truck-palte': {
         label: 'Truck Palet',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             unique: true,
             require: true,
@@ -18,6 +26,10 @@ const Truck = {
     },
     'cargo-type': {
         label: 'Cargo Type',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             require: true,
             type: 'multi',
@@ -28,6 +40,10 @@ const Truck = {
     },
     'driver': {
         label: 'Driver',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             require: true,
             type: 'string',
@@ -36,10 +52,18 @@ const Truck = {
         }
     },
     'truck-type': {
-        label: 'Truck Type'
+        label: 'Truck Type',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
     },
     'price': {
         label: 'Price',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             require: true,
             type: 'number',
@@ -47,26 +71,48 @@ const Truck = {
             sortAble: true
         }
     },
+    'dimention':{
+        label: 'Dimention',
+        setValue: (model)=>{return `${model['dimention-l'].value}-${model['dimention-w'].value}-${model['dimention-h'].value}`},
+        showOnList: true,
+        showOnInputForm: false,
+    },
     'dimention-l': {
         label: 'Long Dimention',
+        value: '',
+        errorCode: null,
+        showOnList: false,
+        showOnInputForm: true,
         validate: {
             type: 'number',
         }
     },
     'dimention-w': {
         label: 'Width Dimention',
+        value: '',
+        errorCode: null,
+        showOnList: false,
+        showOnInputForm: true,
         validate: {
             type: 'number',
         }
     },
     'dimention-h': {
         label: 'Hight Dimention',
+        value: '',
+        errorCode: null,
+        showOnList: false,
+        showOnInputForm: true,
         validate: {
             type: 'number',
         }
     },
     'parking-address': {
         label: 'Parking Address',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             require: true,
             type: 'string',
@@ -76,6 +122,10 @@ const Truck = {
     },
     'production-year': {
         label: 'Product Year',
+        value: '',
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             type: 'number',
             maxValue: new Date().getFullYear()
@@ -83,7 +133,10 @@ const Truck = {
     },
     'status': {
         label: 'Status',
-        defaultValue: 0,
+        value: 0,
+        errorCode: null,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             require: true,
             type: 'number',
@@ -93,7 +146,11 @@ const Truck = {
     },
     'description': {
         label: 'Description',
+        value: '',
+        errorCode: null,
         showCounter: true,
+        showOnList: true,
+        showOnInputForm: true,
         validate: {
             type: 'string',
             maxLength: 200,

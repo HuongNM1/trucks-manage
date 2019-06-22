@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Td from './Td';
+import TruckModel from '../../services/truckmodel';
 
 /**
  * Body component
@@ -16,8 +17,8 @@ class Body extends React.Component {
             cells = [];
             const keys = Object.keys(item);
             for (let i = 0; i < keys.length; i++) {
-                if ('id' !== keys[i]) {
-                    cells.push(<Td key={`${keys[i]}`} value={item[keys[i]]} />);
+                if ('id' !== keys[i] && TruckModel[keys[i]].showOnList) {
+                    cells.push(<Td key={`${keys[i]}`} value={item[keys[i]]} mapping={this.props.mapping[keys[i]]}/>);
                 }
             }
             bodyItems.push(

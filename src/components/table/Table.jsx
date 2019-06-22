@@ -17,6 +17,7 @@ class Table extends React.Component {
                         value={this.props.dataList || []}
                         onOpenEditForm={this.props.onOpenEditForm}
                         onDelete={this.props.onDelete}
+                        mapping={this.props.mapping}
                     />
                 </table>
                 <Paging page={this.props.pageIdx} pageNum={this.props.pageNumber}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Td from './Td';
+import TruckModel from '../../services/truckmodel';
 
 /**
  * Header component
@@ -9,7 +10,9 @@ class Header extends React.Component {
         let headerItems = [];
 
         for (let i = 0; i < this.props.value.length; i++) {
-            headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} />);
+            if (TruckModel[this.props.value[i].key].showOnList) {
+                headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} />);
+            }
         }
         return headerItems;
     }

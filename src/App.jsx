@@ -70,7 +70,7 @@ class App extends React.Component {
   componentDidMount() {
     this.getData()
   }
-  proccessDataShow(){
+  proccessDataShow() {
     let { dataList, dataFilterList, header } = this.state;
     dataFilterList = dataList.filter((value, index) => {
       if ('' === this.state.searchBy) {
@@ -99,7 +99,7 @@ class App extends React.Component {
       {
         searchBy: searchBy,
         searchString: searchString
-      }, ()=>{
+      }, () => {
         this.proccessDataShow();
       }
     );
@@ -108,7 +108,7 @@ class App extends React.Component {
   resetDataModel = () => {
     let dataModel = {};
     Object.keys(TruckModel).forEach((key, idx) => {
-      dataModel[key] = { value: '', errorCode: null };
+      dataModel[key] = { value: TruckModel[key].value, errorCode: null };
     });
     this.setState({
       dataModel: dataModel
@@ -122,29 +122,21 @@ class App extends React.Component {
     })
   }
 
-  convertItemToModel(dataItem) {
-    return {
-      id: { value: dataItem.id, errorCode: null },
-      'truck-palte': { value: dataItem['truck-palte'], errorCode: null },
-      'cargo-type': { value: dataItem['cargo-type'], errorCode: null },
-      'driver': { value: dataItem['driver'], errorCode: null },
-      'truck-type': { value: dataItem['truck-type'], errorCode: null },
-      'price': { value: dataItem['price'], errorCode: null },
-      'dimention-l': { value: dataItem['dimention']['l'], errorCode: null },
-      'dimention-w': { value: dataItem['dimention']['w'], errorCode: null },
-      'dimention-h': { value: dataItem['dimention']['h'], errorCode: null },
-      'parking-address': { value: dataItem['parking-address'], errorCode: null },
-      'production-year': { value: dataItem['production-year'], errorCode: null },
-      'status': { value: dataItem['status'], errorCode: null },
-      'description': { value: dataItem['description'], errorCode: null },
-    }
-  }
+  // convertItemToModel(dataItem) {
+  //   let dataItemModel = {};
+  //   Object.keys(dataItem).forEach((key, idx)=>{
+  //       dataItemModel[key] = { value: dataItem[key], errorCode: null }
+  //   });
+  //   return dataItemModel;
+  // }
 
   onOpenEditForm = (truckId) => {
-    let dataModel;
+    let dataModel = {};
     for (let i = 0; i < this.state.dataList.length; i++) {
       if (truckId === this.state.dataList[i]['id']) {
-        dataModel = this.convertItemToModel(this.state.dataList[i]);
+        Object.keys(this.state.dataList[i]).forEach((key, idx) => {
+          dataModel[key] = { value: this.state.dataList[i][key], errorCode: null }
+        });
         this.setState({
           openInputForm: true,
           formType: 1,
@@ -167,42 +159,35 @@ class App extends React.Component {
     }
   }
 
-  convertDataModel = (dataModel) => {
-    return {
-      'id': dataModel['id'].value || 1,
-      'truck-palte': dataModel['truck-palte'].value,
-      'cargo-type': dataModel['cargo-type'].value,
-      'driver': dataModel['driver'].value,
-      'truck-type': dataModel['truck-type'].value,
-      'price': dataModel['price'].value,
-      'dimention': {
-        'l': dataModel['dimention-l'].value,
-        'w': dataModel['dimention-w'].value,
-        'h': dataModel['dimention-h'].value
-      },
-      'parking-address': dataModel['parking-address'].value,
-      'production-year': dataModel['production-year'].value,
-      'status': this.getTextValue('status', dataModel['status'].value),
-      'description': dataModel['description'].value
-    };
+  getDataModelValue = (dataModel) => {
+    let dataValue = {};
+    Object.keys(dataModel).forEach((key, idx) => {
+      if ('function' === typeof TruckModel[key].setValue) {
+        dataValue[key] = TruckModel[key].setValue(dataModel);
+      } else {
+        dataValue[key] = dataModel[key].value;
+      }
+    });
+    return dataValue;
   }
 
   onSubmitForm = (dataModel) => {
     let { dataList } = this.state;
     if (0 === this.state.formType) {
-      let data = this.convertDataModel(dataModel);
-      data['id'] = dataList[dataList.length - 1]['id'] + 1;
-      dataList.push(data);
+      dataModel['id'] = dataList[dataList.length - 1]['id'] + 1;
+      dataList.push(this.getDataModelValue(dataModel));
     } else if (1 === this.state.formType) {
-      let data = this.convertDataModel(dataModel);
+      let dataValue = this.getDataModelValue(dataModel);
       for (let i = 0; i < dataList.length; i++) {
-        if (dataList[i].id === dataModel['id'].value) {
-          dataList[i] = { ...data };
+        if (dataList[i].id === dataValue['id']) {
+          dataList[i] = { ...dataValue };
           break;
         }
       }
     }
-    this.proccessDataShow();
+    this.setState({
+      dataList: dataList
+    }, () => { this.proccessDataShow(); })
     sessionStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
@@ -268,6 +253,7 @@ class App extends React.Component {
             <Table
               header={this.state.header}
               dataList={this.state.dataListPage}
+              mapping={this.state.mapping}
               pageIdx={this.state.pageIdx}
               pageNumber={this.state.pageNumber}
               onOpenEditForm={this.onOpenEditForm}

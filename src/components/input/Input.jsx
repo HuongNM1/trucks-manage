@@ -6,8 +6,19 @@ import SelectInput from './SelectInput';
 import './Input.scss';
 
 class Input extends React.Component {
+    hanldeNumberOutValue = (val)=>{
+        if (!isNaN(val) && 'string' === typeof val) {
+            try {
+                return (val.toString().indexOf('.') !== -1) ? parseFloat(val) : parseInt(val);
+            } catch (e) {
+                console.log(e);
+                return val;
+            }
+        }
+        return val; 
+    }
     onChange = (event) => {
-        this.props.onChange(this.props.attribute, event.target.value);
+        this.props.onChange(this.props.attribute, this.hanldeNumberOutValue(event.target.value));
     }
     getInputElem = () => {
         let { label } = this.props.modelInfor;
@@ -17,7 +28,7 @@ class Input extends React.Component {
             case 2:
                 return <TextareaInput value={this.props.value.value} onChange={this.onChange} modelInfor={this.props.modelInfor} />;
             case 3:
-                return <SelectInput mapping={this.props.mapping[this.props.attribute]} onChange={this.onChange} value={this.props.value.value}/>;
+                return <SelectInput mapping={this.props.mapping[this.props.attribute]} onChange={this.onChange} value={this.props.value.value} />;
             case 4:
                 //list checkbox
                 break;
