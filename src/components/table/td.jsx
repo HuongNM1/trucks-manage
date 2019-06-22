@@ -12,7 +12,7 @@ class Td extends React.Component {
             return val;
         }
     }
-    
+
     handleValue() {
         // Handle parse value
         let { value } = this.props;
@@ -20,20 +20,8 @@ class Td extends React.Component {
             value = this.parseStringnumberToNumber(value);
         }
         //
-        if ('string' === typeof value) {
+        if ('string' === typeof value || 'number' === typeof value) {
             return this.props.value;
-        } else if ('number' === typeof value) {
-            let mapping = this.props.mapping;
-            if (null != mapping &&
-                Array.isArray(mapping) &&
-                0 < mapping.length) {
-                for (let i = 0; i < mapping.length; i++) {
-                    if (value === mapping[i].value) {
-                        return mapping[i].text;
-                    }
-                }
-            }
-            return value;
         } else if ('object' === typeof (value)) {
             if (value.text) {
                 if (value.note) {

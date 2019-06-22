@@ -161,11 +161,31 @@ const Truck = {
             maxValue: new Date().getFullYear()
         }
     },
+    'status-show': {
+        label: 'Status',
+        value: '',
+        showOnList: true,
+        showOnInputForm: false,
+        showValue: (model, key = '', value = '', mapping = []) => {
+            let valueStr = '';
+            for (let i = 0; i < mapping.length; i++) {
+                try {
+                    if (parseInt(value) === mapping[i].value) {
+                        valueStr = mapping[i].text;
+                    }
+                } catch (e) {
+                    console.log(e);
+                    continue;
+                }
+            }
+            return valueStr;
+        }
+    },
     'status': {
         label: 'Status',
         value: 0,
         errorCode: null,
-        showOnList: true,
+        showOnList: false,
         showOnInputForm: true,
         validate: {
             require: true,

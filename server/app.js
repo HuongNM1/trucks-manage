@@ -17,7 +17,8 @@ let data = {
         { text: 'Dimension', key: 'dimention-h' },
         { text: 'Parking address', key: 'parking-address', searchAble: true, sortAble: true },
         { text: 'Production year', key: 'production-year', searchAble: true, sortAble: true },
-        { text: 'Status', key: 'status', searchAble: true, sortAble: true },
+        { text: 'Status', key: 'status', searchAble: false, sortAble: true },
+        { text: 'Status', key: 'status-show', searchAble: true, sortAble: true },
         { text: 'Description', key: 'description' }
     ],
     mapping: {
@@ -55,6 +56,7 @@ let data = {
             'dimention-h': 10,
             'parking-address': 'ha noi',
             'production-year': 2019,
+            'status-show': 'New',
             'status': 0,
             'description': 'no'
         },
@@ -73,6 +75,7 @@ let data = {
             'parking-address': 'ha noi',
             'production-year': 2018,
             'status': 0,
+            'status-show': 'New',
             'description': 'no'
         },
         // {
