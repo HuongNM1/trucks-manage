@@ -47,9 +47,14 @@ class InputForm extends React.Component {
                             errorCode = 3;
                         }
                     }
-                    if ('isPalete' === key){
+                    if ('isPalete' === key) {
                         if (validateFunc['isNotisPalete'](value)) {
                             errorCode = 4;
+                        }
+                    }
+                    if ('maxItem' === key) {
+                        if (validateFunc['outOfMaxItem'](value, validate[key])) {
+                            errorCode = 5;
                         }
                     }
                 }
@@ -72,7 +77,11 @@ class InputForm extends React.Component {
         let errorCode = null;
         let value = '';
         Object.keys(this.state).forEach((key, idx) => {
-            value = null != this.state[key].value ? this.state[key].value.toString().trim() : this.state[key].value;
+            value = null != this.state[key].value &&
+                'object' !== typeof this.state[key].value &&
+                'boolean' !== typeof this.state[key].value ?
+                this.state[key].value.toString().trim() :
+                this.state[key].value;
             errorCode = this.validateInputData(key, value);
             if (null != this.state[key].errorCode) { // ?????
                 error = true;
@@ -88,7 +97,9 @@ class InputForm extends React.Component {
         if (!error) {
             let values = {};
             Object.keys(this.state).forEach((key, idx) => {
-                if (this.state[key].value && 'string' === typeof this.state[key].value) {
+                if (this.state[key].value &&
+                    'object' !== typeof this.state[key].value &&
+                    'boolean' !== typeof this.state[key].value) {
                     values[key] = { errorCode: this.state[key].errorCode, value: this.state[key].value.toString().trim() }
                 } else {
                     values[key] = { errorCode: this.state[key].errorCode, value: this.state[key].value };

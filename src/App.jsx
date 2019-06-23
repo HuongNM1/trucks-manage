@@ -163,7 +163,7 @@ class App extends React.Component {
     } else if (1 === this.state.formType) {
       let dataValue = this.getDataModelValue(dataModel);
       for (let i = 0; i < dataList.length; i++) {
-        if (dataList[i].id === dataValue['id']) {
+        if (dataList[i].id == dataValue['id']) {
           dataList[i] = { ...dataValue };
           break;
         }
