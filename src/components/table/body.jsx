@@ -28,7 +28,7 @@ class Body extends React.Component {
                     {cells}
                     <td className="">
                         <div className='d-flex'>
-                            <div className="edit-truck-button mr-1"
+                            <div className="edit-truck-button mr-2"
                                 onClick={() => { this.props.onOpenEditForm(this.props.value[i].id) }}
                             ><FontAwesomeIcon icon={faPencilAlt} /></div>
                             <div className="delete-truck-button"
