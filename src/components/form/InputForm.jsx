@@ -47,6 +47,11 @@ class InputForm extends React.Component {
                             errorCode = 3;
                         }
                     }
+                    if ('isPalete' === key){
+                        if (validateFunc['isNotisPalete'](value)) {
+                            errorCode = 4;
+                        }
+                    }
                 }
             });
         }

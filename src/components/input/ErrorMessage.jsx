@@ -12,6 +12,8 @@ class ErrorMessage extends React.Component {
                 return <span className="msg-error">{this.props.label} must be number</span>;
             case 3:// Out of max-value
                 return <span className="msg-error">{this.props.label} is out of {this.props.validate.maxValue}</span>;
+            case 4:// Is not plate string
+                return <span className="msg-error">{this.props.label} is not truck palete format</span>;
             default:
                 return '';
 

@@ -10,7 +10,7 @@ const Truck = {
         }
     },
     'truck-palte': {
-        label: 'Truck Palet',
+        label: 'Truck Palete',
         value: '',
         errorCode: null,
         showOnList: true,
@@ -19,7 +19,8 @@ const Truck = {
             unique: true,
             require: true,
             type: 'string',
-            format: '',
+            isPalete: true,
+            maxLength: 9,
             searchAble: true,
             sortAble: true
         }
