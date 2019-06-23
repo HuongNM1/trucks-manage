@@ -1,3 +1,4 @@
+@import '../../assets/scss/common.scss';
 .input-form-cover{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -8,7 +9,7 @@
     background-color: #ffffff;
     max-width: 1200px !important;
     .header{
-        background-color: #343a40;
+        background-color: $hoverColor;
         color: #ffffff;
         .header-title{
             display: inline-block;

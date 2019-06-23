@@ -2,6 +2,8 @@ import React from 'react';
 import Input from '../input/Input';
 import TruckModel from '../../services/truckModel';
 import validateFunc from './validate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './InputForm.scss';
 
 class InputForm extends React.Component {
@@ -164,7 +166,7 @@ class InputForm extends React.Component {
                 <div className="input-form-cover">
                     <div className="header p-2 mb-3">
                         <div className="header-title">{headerTitle}</div>
-                        <button type="button" className="btn btn-outline-danger close-header-button" onClick={this.onClose}>X</button>
+                        <button type="button" className="btn btn-outline-danger close-header-button" onClick={this.onClose}><FontAwesomeIcon icon={faTimes} /></button>
                     </div>
                     <div className="body">
                         <div className="left-content mr-1">

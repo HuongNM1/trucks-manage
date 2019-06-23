@@ -6,30 +6,38 @@ class Paging extends React.Component {
     constructor(props) {
         super(props);
         this.state = { ...props };
+        this.state['startIdx'] = 0;
     }
 
     onChangePage = (page) => {
         this.props.onChangePage(page);
-        this.setState({
-            page: page
-        });
+        if (Math.abs(page - this.state.startIdx) > this.state.maxDisplayPages-1) {
+            let p = page;
+            if(p < 0){
+                p = 0;
+            }else if (p > this.state.pageNum-1){
+                p = this.state.pageNum;
+            }
+            this.setState({
+                startIdx: p,
+                page: p
+            });
+        } else {
+            this.setState({
+                page: page
+            });
+        }
     }
 
     backPage = (page) => {
         if (0 < page) {
-            this.setState({
-                page: page - 1
-            });
-            this.props.onChangePage(page - 1);
+            this.onChangePage(page - 1);
         }
     }
 
     nextPage = (page) => {
         if (page < this.state.pageNum - 1) {
-            this.setState({
-                page: page + 1
-            });
-            this.props.onChangePage(page + 1);
+            this.onChangePage(page + 1);
         }
     }
     goLimitPage = (type) => {
@@ -37,16 +45,18 @@ class Paging extends React.Component {
         if (1 === type) {
             page = this.state.pageNum - 1;
         }
-        this.setState({
-            page: page
-        });
-        this.props.onChangePage(page);
+        this.onChangePage(page);
     }
+
     render() {
-        let { page, pageNum, maxDisplayPages } = this.state;
+        let { page, pageNum, maxDisplayPages, startIdx } = this.state;
         if (1 < pageNum) {
             let pageItem = [];
-            for (let i = 0; i < maxDisplayPages; i++) {
+            let num = startIdx+maxDisplayPages;
+            if(num > this.state.pageNum){
+                num = pageNum;
+            }
+            for (let i = startIdx; i < num; i++) {
                 if (i === page) {
                     pageItem.push(
                         <div key={i} className="page-item focus"
