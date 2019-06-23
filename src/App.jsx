@@ -87,6 +87,7 @@ class App extends React.Component {
     });
     this.setState(
       {
+        pageIdx: 0,
         dataFilterList: dataFilterList,
         pageNumber: dataFilterList.length / this.state.numberItemOnePage,
         dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
@@ -199,14 +200,10 @@ class App extends React.Component {
     })
   }
 
-  pagingHandleList(page) {
-
-  }
-
   onChangePage = (pageIdx) => {
     this.setState({
       pageIdx: pageIdx,
-      dataListPage: this.state.dataFilterList.slice(pageIdx, pageIdx + this.state.numberItemOnePage)
+      dataListPage: this.state.dataFilterList.slice( (pageIdx*this.state.numberItemOnePage), (pageIdx*this.state.numberItemOnePage + this.state.numberItemOnePage))
     })
   }
 
@@ -235,6 +232,7 @@ class App extends React.Component {
           {inputForm}
           <div className="row">
             <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
+            <p>{`Number trucks: ${this.state.dataFilterList.length}`}</p>
             <Table
               header={this.state.header}
               dataList={this.state.dataListPage}
