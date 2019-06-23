@@ -13,6 +13,19 @@ class Body extends React.Component {
         let bodyItems = [];
         let cells = [];
         let item = {}
+        if(0 === this.props.value.length){
+            let columns = 1;
+            for (let i = 0; i < this.props.header.length; i++) {
+                if (TruckModel[this.props.header[i].key].showOnList){
+                    columns+=1;
+                }
+            }
+            return (
+                <tr>
+                    <td className="no-data" colspan={`${columns}`}>There are no data</td>
+                </tr>
+            );
+        }
 
         for (let i = 0; i < this.props.value.length; i++) {
             item = this.props.value[i];

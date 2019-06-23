@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
         data.dataList.push(
             {
                 'id': i,
-                'truck-palte': `30A-509${i}`,
+                'truck-palte': `30A-50${i}`,
                 'cargo-type': [0, 1, 2, 3],
                 'cargo-type-show': 'Computer, Vagetable, Kid toys, Furniture',
                 'driver': `Nguyen Van A${i}`,

@@ -3,73 +3,86 @@
 .table-list-cover{
     @include contentPadding($paddingContentTB, $paddingContentLR);
     position: relative;
-    .table-list{
+    .table-list-panel{
         position: relative;
-        left: auto;
+        height: 370px;
+        overflow: auto;
         width: 100%;
-        border-top: 1px solid $borderColor;
-        border-left: 1px solid $borderColor;
-        border-right: 1px solid $borderColor;
-        font-size: 14px;
-        td{
-            border-bottom: 1px solid $borderColor;
-            @include tdthPaddingContent();
-        }
-        thead{
-            background-color: $backgroundColor;
-            font-weight: bold;
-            color: #ffffff;
-            th{
-                border-bottom: 2px solid $borderColor;
-                padding:5px;
-                text-align: center;
+        .table-list{
+            position: relative;
+            left: auto;
+            width: 100%;
+            border-top: 1px solid $borderColor;
+            border-left: 1px solid $borderColor;
+            border-right: 1px solid $borderColor;
+            font-size: 14px;
+            td{
+                border-bottom: 1px solid $borderColor;
                 @include tdthPaddingContent();
-                .th-content{
-                    line-height: 15px;
-                    display: flex;
-                    justify-content: center;
-                }
-                .sort-icon-cover{
-                    padding-left: 5px;
-                    line-height: 13px;
-                    font-size: 12px;
-                    .up, .down{
-                        &:hover{
-                            cursor: pointer;
-                            color: $hoverColor;
+            }
+            thead{
+                background-color: $backgroundColor;
+                font-weight: bold;
+                color: #ffffff;
+                th{
+                    border-bottom: 2px solid $borderColor;
+                    padding:5px;
+                    text-align: center;
+                    @include tdthPaddingContent();
+                    .th-content{
+                        line-height: 15px;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .sort-icon-cover{
+                        padding-left: 5px;
+                        line-height: 13px;
+                        font-size: 12px;
+                        .up, .down{
+                            &:hover{
+                                cursor: pointer;
+                                color: $hoverColor;
+                            }
                         }
                     }
                 }
-            }
-            .th-content-truck-palte{
-                width: 100px;
-            }
-            .th-content-th-content-driver{
-                width: 140px;
-            }
-            .th-content-dimention{
-                width: 80px;
-            }
-        }
-        tbody{
-            tr{
-                &:hover{
-                    background-color: $backgroundColorHover;
+                .th-content-truck-palte{
+                    width: 100px;
                 }
-                td{  
-                    .edit-truck-button,
-                    .delete-truck-button{
-                        &:hover{
-                            color: $hoverColor;
-                            border-radius: 2px;
-                            cursor: pointer;
+                .th-content-th-content-driver{
+                    width: 140px;
+                }
+                .th-content-dimention{
+                    width: 80px;
+                }
+            }
+            tbody{
+                tr{
+                    &:hover{
+                        background-color: $backgroundColorHover;
+                    }
+                    td{  
+                        .edit-truck-button,
+                        .delete-truck-button{
+                            &:hover{
+                                color: $hoverColor;
+                                border-radius: 2px;
+                                cursor: pointer;
+                            }
+                        }
+                        .edit-truck-button{
+                            color: $editButtonColor;
+                        }
+                        .delete-truck-button{
+                            color: $deleteButtonColor;
                         }
                     }
-                    .edit-truck-button{
-                        color: $editButtonColor;
-                    }
-                    .delete-truck-button{
-                        color: $deleteButtonColor;
+                    .no-data{
+                        text-align: center;
+                        &:hover{
+                            background-color: #ffffff;
+                            cursor: normal;
+                        }
                     }
                 }
             }
