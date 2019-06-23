@@ -66,3 +66,26 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+
+
+### run mock api get data `npm node app.js`
+
+The file './trucks-manage/server/app.js' is will be run by npm.
+Open your cmd window, and go to folder server by path './trucks-manage/server'.
+Remember run 'npm install' before.
+After that, type command line: 'npm node app.js'.
+NOTE: This server run on port 3008. Be carefull by conflic!
+
+### source code React
+Please execute source on develope environment. Sorry I have not build yet.
+You can open source code by VisualCode or anything like that.
+The first, run 'npm install' in command line to get node_module
+And then type 'npm start' to start project.
+
+-That All-
+
+NOTE: If you get any issues or problem with this project, please contact me.
+Mobile: 0975748968
+Email: nguyenminhhuong2192@gmail.com
