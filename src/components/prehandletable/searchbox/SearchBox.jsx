@@ -32,7 +32,7 @@ class SearchBox extends React.Component {
                 />
                 <div className="input-group-append">
                     <button
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-success"
                         type="button" id="button-addon2"
                         onClick={() => {
                             let searchElem = document.getElementById('input-search');

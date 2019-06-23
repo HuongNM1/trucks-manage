@@ -46,7 +46,7 @@ class Paging extends React.Component {
         let { page, pageNum, maxDisplayPages } = this.state;
         if (1 < pageNum) {
             let pageItem = [];
-            for (let i = 0; i < pageNum; i++) {
+            for (let i = 0; i < maxDisplayPages; i++) {
                 if (i === page) {
                     pageItem.push(
                         <div key={i} className="page-item focus"
