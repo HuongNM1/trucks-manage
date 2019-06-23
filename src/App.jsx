@@ -24,9 +24,8 @@ class App extends React.Component {
       dataModel: {},
       formType: 0,
       pageIdx: 0,
-      pageNumber: 1,
       maxDisplayPages: 5,
-      numberItemOnePage: 10,
+      numberItemOnePage: 3,
       searchBy: '',
       searchString: ''
     }
@@ -34,25 +33,6 @@ class App extends React.Component {
     Object.keys(TruckModel).forEach((key, idx) => {
       this.state.dataModel[key] = { value: '', errorCode: null };
     });
-  }
-
-  getPageNumber = (numberOfItem) => {
-    let result = numberOfItem / this.state.numberItemOnePage;
-    try {
-      let parts = result.toString().split('.');
-      if (1 === parts.length) {
-        return parseInt(parts[0]);
-      } else if (1 < parts.length) {
-        if (0 < parseInt(parts[1])) {
-          return parseInt(parts[0]) + 1;
-        } else {
-          return parseInt(parts[0]);
-        }
-      }
-    } catch (e) {
-      console.log('pagging error: ', e);
-      return 1;
-    }
   }
 
   async getData() {
@@ -76,7 +56,6 @@ class App extends React.Component {
         header: result.data['header'],
         dataList: result.data['dataList'],
         mapping: result.data['mapping'],
-        pageNumber: this.getPageNumber(result.data['dataList'].length),
         pageIdx: 0,
         attributesInum: result.data['attributesInum'],
         load: false,
@@ -132,7 +111,6 @@ class App extends React.Component {
       {
         pageIdx: 0,
         dataFilterList: dataFilterList,
-        pageNumber: this.getPageNumber(dataFilterList.length),
         dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
       }
     );
@@ -297,9 +275,10 @@ class App extends React.Component {
             sort={{ sortBy: this.state.sortBy, sortType: this.state.sortType }}
             onSort={this.onSort}
             dataList={this.state.dataListPage}
+            dataFilterList={this.state.dataFilterList}
             mapping={this.state.mapping}
             pageIdx={this.state.pageIdx}
-            pageNumber={this.state.pageNumber}
+            numberItemOnePage={this.state.numberItemOnePage}
             maxDisplayPages={this.state.maxDisplayPages}
             onOpenEditForm={this.onOpenEditForm}
             onDelete={this.onDelete}

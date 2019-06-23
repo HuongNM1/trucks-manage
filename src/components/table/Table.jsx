@@ -25,7 +25,8 @@ class Table extends React.Component {
                 </table>
                 <Paging
                     page={this.props.pageIdx}
-                    pageNum={this.props.pageNumber}
+                    numberItemOnePage={this.props.numberItemOnePage}
+                    listItems={this.props.dataFilterList}
                     maxDisplayPages={this.props.maxDisplayPages}
                     onChangePage={this.props.onChangePage} />
             </div>
