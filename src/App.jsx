@@ -105,29 +105,12 @@ class App extends React.Component {
     );
   }
 
-  // resetDataModel = () => {
-  //   let dataModel = {};
-  //   Object.keys(TruckModel).forEach((key, idx) => {
-  //     dataModel[key] = { value: TruckModel[key].value, errorCode: null };
-  //   });
-  //   return dataModel;
-  // }
-
   addTruck = () => {
     this.setState({
-      // dataModel: this.resetDataModel(),
       openInputForm: true,
       formType: 0
     })
   }
-
-  // convertItemToModel(dataItem) {
-  //   let dataItemModel = {};
-  //   Object.keys(dataItem).forEach((key, idx)=>{
-  //       dataItemModel[key] = { value: dataItem[key], errorCode: null }
-  //   });
-  //   return dataItemModel;
-  // }
 
   onOpenEditForm = (truckId) => {
     let dataModel = {};
@@ -174,7 +157,7 @@ class App extends React.Component {
   onSubmitForm = (dataModel) => {
     let { dataList } = this.state;
     if (0 === this.state.formType) {
-      dataModel['id'] = dataList[dataList.length - 1]['id'] + 1;
+      dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
       dataList.push(this.getDataModelValue(dataModel));
     } else if (1 === this.state.formType) {
       let dataValue = this.getDataModelValue(dataModel);
