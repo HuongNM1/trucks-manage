@@ -25,7 +25,7 @@ class App extends React.Component {
       formType: 0,
       pageIdx: 0,
       maxDisplayPages: 5,
-      numberItemOnePage: 3,
+      numberItemOnePage: 10,
       searchBy: '',
       searchString: ''
     }
@@ -74,8 +74,8 @@ class App extends React.Component {
     dataFilterList = dataList.filter((value, index) => {
       if ('' === this.state.searchBy) {
         for (let i = 0; i < header.length; i++) {
-          if ('string' === typeof value[header[i].key] && header[i].searchAble &&
-            value[header[i].key].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+          if (header[i].searchAble &&
+            value[header[i].key].toString().toLowerCase().indexOf(this.state.searchString.toString().toLowerCase()) !== -1) {
             return true;
           }
         }
