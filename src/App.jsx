@@ -26,7 +26,7 @@ class App extends React.Component {
       pageIdx: 0,
       pageNumber: 1,
       maxDisplayPages: 5,
-      numberItemOnePage: 1,
+      numberItemOnePage: 10,
       searchBy: '',
       searchString: ''
     }
