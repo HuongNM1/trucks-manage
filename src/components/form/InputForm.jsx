@@ -180,7 +180,7 @@ class InputForm extends React.Component {
                     </div>
 
                 </div>
-                <div className="backdrop"></div>
+                <div className="backdrop" onClick={this.onClose}></div>
             </div>
         );
     }

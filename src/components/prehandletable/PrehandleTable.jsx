@@ -1,23 +1,21 @@
 import React from 'react';
 import SearchBox from './searchbox/SearchBox';
+import './PrehandleTable.scss';
 
 class PrehandleTable extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-8">
-                        <SearchBox search={this.props.search} value={this.props.value} />
-                    </div>
-                    <div className="col-4">
-                        <button
-                            type="button"
-                            className="btn btn-info float-right"
-                            onClick={this.props.addTruck}
-                        >
-                            Add new truck
+            <div className="cover-prehandle">
+                <div className="search-item">
+                    <SearchBox search={this.props.search} value={this.props.value} />
+                </div>
+                <div className="add-item">
+                    <button
+                        className="add-truck-class float-right"
+                        onClick={this.props.addTruck}
+                    >
+                        + Add new truck
                         </button>
-                    </div>
                 </div>
             </div>
         );

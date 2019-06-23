@@ -1,13 +1,27 @@
 @import '~bootstrap/scss/bootstrap.scss';
+@import './assets/scss/common.scss';
 .cover{
-    margin-top: 30px;
+    width: 100%;
     max-height: 1000px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border: 1px solid #cccccc;
-    padding: 30px;
+    overflow: auto;
     box-sizing: border-box;
+    @include coverWidth();
     .page-title{
-        margin-bottom: 40px;
+        height: 70px;
+        background-color: $backgroundHeaderColor;
+        color: $textButtonColor;
+        @include contentPadding($paddingContentTB, $paddingContentLR);
+    }
+    .number-of-item{
+        @include contentPadding($paddingContentTB, $paddingContentLR);
+        float: right;
+        .number-title{
+            color: $textColorGray;
+        }
+        .number-value{
+            color: $textColorGrayDark;
+            font-weight: bold;
+            font-style: italic;
+        }
     }
 }

@@ -98,7 +98,7 @@ class App extends React.Component {
         } else {
           return 0;
         }
-      }else if (1 === this.state.sortType) {// sort z->a, max->min
+      } else if (1 === this.state.sortType) {// sort z->a, max->min
         if (d1[sortBy] > d2[sortBy]) {
           return -1;
         } else if (d1[sortBy] < d2[sortBy]) {
@@ -244,7 +244,7 @@ class App extends React.Component {
     let content = null;
     if (this.state.load) {
       content =
-        <div className="container cover">
+        <div className="cover">
           <h1 className="page-title">Truck Managment</h1>
           <Load />
         </div>;
@@ -260,25 +260,31 @@ class App extends React.Component {
           />
         </div> : '';
       content =
-        <div className="container cover">
-          <h1 className="page-title">Truck Managment</h1>
-          {inputForm}
-          <div className="row">
-            <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
-            <p>{`Number trucks: ${this.state.dataFilterList.length}`}</p>
-            <Table
-              header={this.state.header}
-              sort={{ sortBy: this.state.sortBy, sortType: this.state.sortType }}
-              onSort={this.onSort}
-              dataList={this.state.dataListPage}
-              mapping={this.state.mapping}
-              pageIdx={this.state.pageIdx}
-              pageNumber={this.state.pageNumber}
-              onOpenEditForm={this.onOpenEditForm}
-              onDelete={this.onDelete}
-              onChangePage={this.onChangePage}
-            />
+        <div className="cover">
+          <div className="page-title">
+            <h1 className="text">Truck Managment</h1>
           </div>
+          <div>
+            {inputForm}
+          </div>
+          <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
+          <div className="number-of-item">
+            <span className="number-title">There are </span>
+            <span className="number-value">{this.state.dataFilterList.length}</span>
+            <span className="number-title"> item(s) in list</span>
+          </div>
+          <Table
+            header={this.state.header}
+            sort={{ sortBy: this.state.sortBy, sortType: this.state.sortType }}
+            onSort={this.onSort}
+            dataList={this.state.dataListPage}
+            mapping={this.state.mapping}
+            pageIdx={this.state.pageIdx}
+            pageNumber={this.state.pageNumber}
+            onOpenEditForm={this.onOpenEditForm}
+            onDelete={this.onDelete}
+            onChangePage={this.onChangePage}
+          />
         </div>;
     }
     return content;

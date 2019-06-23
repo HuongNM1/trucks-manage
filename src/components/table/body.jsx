@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Td from './td';
 import TruckModel from '../../services/truckModel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Body component
@@ -18,18 +20,21 @@ class Body extends React.Component {
             const keys = Object.keys(item);
             for (let i = 0; i < keys.length; i++) {
                 if ('id' !== keys[i] && TruckModel[keys[i]].showOnList) {
-                    cells.push(<Td key={`${keys[i]}`} value={item[keys[i]]} mapping={this.props.mapping[keys[i]]}/>);
+                    cells.push(<Td key={`${keys[i]}`} value={item[keys[i]]} mapping={this.props.mapping[keys[i]]} />);
                 }
             }
             bodyItems.push(
                 <tr key={`${this.props.value[i].id}-${i}`}>
                     {cells}
-                    <td className="d-flex">
-                        <button type="button" className="btn btn-outline-warning mr-1"
-                            onClick={()=>{this.props.onOpenEditForm(this.props.value[i].id)}}
-                            >Edit</button>
-                        <button type="button" className="btn btn-outline-danger"
-                        onClick={()=>{this.props.onDelete(this.props.value[i].id)}}>Delete</button>
+                    <td className="">
+                        <div className='d-flex'>
+                            <div className="edit-truck-button mr-1"
+                                onClick={() => { this.props.onOpenEditForm(this.props.value[i].id) }}
+                            ><FontAwesomeIcon icon={faPencilAlt} /></div>
+                            <div className="delete-truck-button"
+                                onClick={() => { this.props.onDelete(this.props.value[i].id) }}>
+                                <FontAwesomeIcon icon={faTrashAlt} /></div>
+                        </div>
                     </td>
                 </tr>
             );

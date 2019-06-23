@@ -6,7 +6,7 @@ import TruckModel from '../../services/truckModel';
  * Header component
  */
 class Header extends React.Component {
-    onSort = (sortBy, sortType)=>{
+    onSort = (sortBy, sortType) => {
         this.props.onSort(sortBy, sortType);
     }
     renderHeader() {
@@ -14,7 +14,7 @@ class Header extends React.Component {
 
         for (let i = 0; i < this.props.value.length; i++) {
             if (TruckModel[this.props.value[i].key].showOnList) {
-                headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} onSort={this.onSort}/>);
+                headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} onSort={this.onSort} />);
             }
         }
         return headerItems;
@@ -24,7 +24,7 @@ class Header extends React.Component {
             <thead className="thead-dark">
                 <tr>
                     {this.renderHeader()}
-                    <th>Action</th>
+                    <th> <div className="th-content-action">Action</div></th>
                 </tr>
             </thead>
         );

@@ -1,0 +1,25 @@
+@import '../../assets/scss/common.scss';
+
+
+.cover-prehandle{
+    background-color: $backgrounPrehandle;
+    @include displayPrehandleFlex();
+    padding: 25px 10px 10px;
+    .search-item{
+        width: 70%;
+    }
+    .add-item{
+        margin-left: 20px;
+        .add-truck-class{
+            width: 145px;
+            background-color: $addButtonColor;
+            color: $textButtonColor;
+            height: 37px;
+            &:hover{
+                background-color: $hoverColor;
+            }
+            @include border-radius(2px);
+            @include removeDefaultButton();
+        }
+    }
+}

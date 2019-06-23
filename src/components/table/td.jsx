@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * TD component
@@ -46,14 +48,16 @@ class Td extends React.Component {
         );
         if (1 === this.props.type) {
             let sortEle = this.props.value.sortAble ?
-                <div>
-                    <div onClick={()=>{this.onSort(this.props.value.key, 0)}}>^</div>
-                    <div onClick={()=>{this.onSort(this.props.value.key, 1)}}>V</div>
+                <div className={`sort-icon-cover sort-icon-cover-${this.props.value.key}`}>
+                    <div className='up' onClick={() => { this.onSort(this.props.value.key, 0) }}><FontAwesomeIcon icon={faAngleUp} /></div>
+                    <div className='down' onClick={() => { this.onSort(this.props.value.key, 1) }}><FontAwesomeIcon icon={faAngleDown} /></div>
                 </div> : '';
             tdEle = (
                 <th key={this.handleValue()} scope="col">
-                    {this.handleValue()}
-                    {sortEle}
+                    <div className={`th-content th-content-${this.props.value.key}`}>
+                        {this.handleValue()}
+                        {sortEle}
+                    </div>
                 </th>
             );
         }

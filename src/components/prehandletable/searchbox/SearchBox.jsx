@@ -1,8 +1,8 @@
 import React from 'react';
 // import Dropdown from './SearchDropdown'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class SearchBox extends React.Component {
     constructor(props) {

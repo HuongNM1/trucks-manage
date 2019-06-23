@@ -4,6 +4,7 @@ class Paging extends React.Component {
 
     render() {
         let { page, pageNum } = this.props;
+        console.log(page);
         if (1 < pageNum) {
             let pageItem = [];
             for (let i = 0; i < pageNum; i++) {

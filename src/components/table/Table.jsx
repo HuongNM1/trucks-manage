@@ -13,8 +13,8 @@ class Table extends React.Component {
     }
     render() {
         return (
-            <div>
-                <table className='table' cellPadding='0' cellSpacing='0'>
+            <div className="table-list-cover">
+                <table className='table-list' cellPadding='0' cellSpacing='0'>
                     <Header value={this.props.header || []} sort={this.props.sort} onSort={this.onSort}/>
                     <Body
                         value={this.props.dataList || []}

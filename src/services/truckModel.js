@@ -10,7 +10,7 @@ const Truck = {
         }
     },
     'truck-palte': {
-        label: 'Truck Palete',
+        label: 'Palete',
         value: '',
         errorCode: null,
         showOnList: true,
@@ -81,7 +81,7 @@ const Truck = {
         }
     },
     'truck-type': {
-        label: 'Truck Type',
+        label: 'Type',
         value: '',
         errorCode: null,
         showOnList: true,
