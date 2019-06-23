@@ -9,7 +9,13 @@ class Checkbox extends React.Component {
         this.setState({
             checked: event.target.checked
         });
-        this.state.onChange(parseInt(event.target.value), event.target.checked);
+        let value = null;
+        try{
+            value = parseInt(event.target.value)
+        }catch(e){
+            console.log('parse int error: ', e);
+        }
+        this.state.onChange(value, event.target.checked);
     }
     render() {
         return (

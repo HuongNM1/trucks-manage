@@ -54,7 +54,7 @@ const Truck = {
     },
     'cargo-type': {
         label: 'Cargo Type',
-        value: [],
+        value: null,
         errorCode: null,
         showOnList: false,
         showOnInputForm: true,
