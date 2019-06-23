@@ -10,23 +10,39 @@ class Paging extends React.Component {
     }
 
     onChangePage = (page) => {
-        this.props.onChangePage(page);
-        if (Math.abs(page - this.state.startIdx) > this.state.maxDisplayPages-1) {
-            let p = page;
-            if(p < 0){
-                p = 0;
-            }else if (p > this.state.pageNum-1){
-                p = this.state.pageNum;
+        // Check page
+        let { startIdx, maxDisplayPages, pageNum } = this.state;
+        let range = [startIdx, startIdx + maxDisplayPages-1];
+        if (page < range[0]) {// case page less than start index page
+            range[0] = page - maxDisplayPages+1;
+            range[1] = page;
+            if(range[0] < 0){
+                range[0] = 0;
+                range[1] = maxDisplayPages-1;
             }
             this.setState({
-                startIdx: p,
-                page: p
+                page: page,
+                startIdx: range[0]
             });
-        } else {
+        } else if (page > range[1]) {// case page more than end index page
+            range[0] = page;
+            range[1] = page + maxDisplayPages-1;
+            if(range[1]>pageNum){
+                range[1] = pageNum;
+                range[0] = range[1] - maxDisplayPages;
+            }
+            this.setState({
+                page: page,
+                startIdx: range[0]
+            });
+        } else {// normal case, page in range
             this.setState({
                 page: page
             });
         }
+        
+        this.props.onChangePage(page);
+        
     }
 
     backPage = (page) => {
@@ -52,8 +68,8 @@ class Paging extends React.Component {
         let { page, pageNum, maxDisplayPages, startIdx } = this.state;
         if (1 < pageNum) {
             let pageItem = [];
-            let num = startIdx+maxDisplayPages;
-            if(num > this.state.pageNum){
+            let num = startIdx + maxDisplayPages;
+            if (num > this.state.pageNum) {
                 num = pageNum;
             }
             for (let i = startIdx; i < num; i++) {
