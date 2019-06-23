@@ -8,14 +8,14 @@ import Paging from './Paging';
  * Table component
  */
 class Table extends React.Component {
-    onSort = (sortBy, sortType)=>{
+    onSort = (sortBy, sortType) => {
         this.props.onSort(sortBy, sortType);
     }
     render() {
         return (
             <div className="table-list-cover">
                 <table className='table-list' cellPadding='0' cellSpacing='0'>
-                    <Header value={this.props.header || []} sort={this.props.sort} onSort={this.onSort}/>
+                    <Header value={this.props.header || []} sort={this.props.sort} onSort={this.onSort} />
                     <Body
                         value={this.props.dataList || []}
                         onOpenEditForm={this.props.onOpenEditForm}
@@ -23,7 +23,10 @@ class Table extends React.Component {
                         mapping={this.props.mapping}
                     />
                 </table>
-                <Paging page={this.props.pageIdx} pageNum={this.props.pageNumber}
+                <Paging
+                    page={this.props.pageIdx}
+                    pageNum={this.props.pageNumber}
+                    maxDisplayPages={this.props.maxDisplayPages}
                     onChangePage={this.props.onChangePage} />
             </div>
         );

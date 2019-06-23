@@ -25,7 +25,8 @@ class App extends React.Component {
       formType: 0,
       pageIdx: 0,
       pageNumber: 1,
-      numberItemOnePage: 5,
+      maxDisplayPages: 2,
+      numberItemOnePage: 2,
       searchBy: '',
       searchString: ''
     }
@@ -35,6 +36,24 @@ class App extends React.Component {
     });
   }
 
+  getPageNumber = (numberOfItem) => {
+    let result = numberOfItem / this.state.numberItemOnePage;
+    try {
+      let parts = result.toString().split('.');
+      if (1 === parts.length) {
+        return parseInt(parts[0]);
+      } else if (1 < parts.length) {
+        if (0 < parseInt(parts[1])) {
+          return parseInt(parts[0]) + 1;
+        } else {
+          return parseInt(parts[0]);
+        }
+      }
+    } catch (e) {
+      console.log('pagging error: ', e);
+      return 1;
+    }
+  }
 
   async getData() {
     let self = this;
@@ -57,7 +76,7 @@ class App extends React.Component {
         header: result.data['header'],
         dataList: result.data['dataList'],
         mapping: result.data['mapping'],
-        pageNumber: result.data['dataList'].length / this.state.numberItemOnePage,
+        pageNumber: this.getPageNumber(result.data['dataList'].length),
         pageIdx: 0,
         attributesInum: result.data['attributesInum'],
         load: false,
@@ -113,7 +132,7 @@ class App extends React.Component {
       {
         pageIdx: 0,
         dataFilterList: dataFilterList,
-        pageNumber: dataFilterList.length / this.state.numberItemOnePage,
+        pageNumber: this.getPageNumber(dataFilterList.length),
         dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
       }
     );
@@ -281,6 +300,7 @@ class App extends React.Component {
             mapping={this.state.mapping}
             pageIdx={this.state.pageIdx}
             pageNumber={this.state.pageNumber}
+            maxDisplayPages={this.state.maxDisplayPages}
             onOpenEditForm={this.onOpenEditForm}
             onDelete={this.onDelete}
             onChangePage={this.onChangePage}

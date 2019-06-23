@@ -100,5 +100,11 @@
             color: $textButtonColor;
             font-weight: bold;
         }
+        .first-page,
+        .prev-page,
+        .next-page,
+        .last-page{
+            color: $textColorGray;
+        }
     }
 }
