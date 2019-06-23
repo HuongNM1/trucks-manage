@@ -2,12 +2,9 @@ import React from 'react';
 import Checkbox from './Checkbox';
 
 class MultiCheckbox extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { data: props.value };
-    }
     createCheckboxes = () => {
         let { mapping, value } = this.props;
+        console.log(mapping, value);
         let checkboxes = [];
         for (let i = 0; i < mapping.length; i++) {
             mapping[i]['checked'] = false;
@@ -31,7 +28,7 @@ class MultiCheckbox extends React.Component {
     }
 
     onChange = (value, checked) => {
-        let { data } = this.state;
+        let data = this.props.value;
         if (null == data || !Array.isArray(data)) {
             data = [];
         }
@@ -41,9 +38,6 @@ class MultiCheckbox extends React.Component {
         } else {
             data.splice(idx, 1);
         }
-        this.setState({
-            data: data
-        })
         this.props.onChange({ target: { value: data } });
     }
 

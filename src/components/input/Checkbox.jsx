@@ -9,7 +9,7 @@ class Checkbox extends React.Component {
         this.setState({
             checked: event.target.checked
         });
-        this.state.onChange(event.target.value, event.target.checked);
+        this.state.onChange(parseInt(event.target.value), event.target.checked);
     }
     render() {
         return (
