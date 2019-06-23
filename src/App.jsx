@@ -110,13 +110,12 @@ class App extends React.Component {
     Object.keys(TruckModel).forEach((key, idx) => {
       dataModel[key] = { value: TruckModel[key].value, errorCode: null };
     });
-    this.setState({
-      dataModel: dataModel
-    });
+    return dataModel;
   }
+
   addTruck = () => {
-    this.resetDataModel();
     this.setState({
+      dataModel: this.resetDataModel(),
       openInputForm: true,
       formType: 0
     })
@@ -201,6 +200,8 @@ class App extends React.Component {
           dataList.splice(i, 1);
           this.setState({
             dataList: dataList
+          }, () => {
+            this.proccessDataShow();
           });
           sessionStorage.setItem('dataList', JSON.stringify(dataList));
           return true;

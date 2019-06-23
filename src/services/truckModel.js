@@ -28,7 +28,6 @@ const Truck = {
         label: 'Cargo Type',
         value: '',
         showValue: (model, key = '', value = '', mapping = []) => {
-            console.log(key, value, mapping);
             let valueForShow = [];
             if (value && Array.isArray(value) && 0 < value.length) {
                 for (let i = 0; i < value.length; i++) {

@@ -12,7 +12,7 @@ class MultiCheckbox extends React.Component {
         for (let i = 0; i < mapping.length; i++) {
             if (value && Array.isArray(value) && 0 < value.length) {
                 for (let j = 0; j < value.length; j++) {
-                    if (value[j] === mapping[i].value) {
+                    if (parseInt(value[j]) === mapping[i].value) {
                         mapping[i]['checked'] = true;
                         break;
                     }
