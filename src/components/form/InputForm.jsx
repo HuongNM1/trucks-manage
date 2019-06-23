@@ -8,7 +8,16 @@ class InputForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = this.props.value;
+        if (0 === props.formType) {
+            // reset dataModel to default value in truck model
+            let dataModel = {};
+            Object.keys(TruckModel).forEach((key, idx) => {
+                dataModel[key] = { value: TruckModel[key].value, errorCode: null };
+            });
+            this.state = dataModel;
+        } else {
+            this.state = props.value;
+        }
     }
 
     validateInputData = (key, value) => {
@@ -134,8 +143,7 @@ class InputForm extends React.Component {
         let truckElems = this.getInputEles();
         let truckEles1 = truckElems.slice(0, 7);
         let truckEles2 = truckElems.slice(7);
-        let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'
-        return (
+        let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'; return (
             <div>
                 <div className="input-form-cover">
                     <div className="header p-2 mb-3">

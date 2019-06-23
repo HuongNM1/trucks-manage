@@ -105,17 +105,17 @@ class App extends React.Component {
     );
   }
 
-  resetDataModel = () => {
-    let dataModel = {};
-    Object.keys(TruckModel).forEach((key, idx) => {
-      dataModel[key] = { value: TruckModel[key].value, errorCode: null };
-    });
-    return dataModel;
-  }
+  // resetDataModel = () => {
+  //   let dataModel = {};
+  //   Object.keys(TruckModel).forEach((key, idx) => {
+  //     dataModel[key] = { value: TruckModel[key].value, errorCode: null };
+  //   });
+  //   return dataModel;
+  // }
 
   addTruck = () => {
     this.setState({
-      dataModel: this.resetDataModel(),
+      // dataModel: this.resetDataModel(),
       openInputForm: true,
       formType: 0
     })

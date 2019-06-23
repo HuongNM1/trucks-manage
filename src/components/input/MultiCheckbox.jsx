@@ -4,12 +4,13 @@ import Checkbox from './Checkbox';
 class MultiCheckbox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: props.value }
+        this.state = { data: props.value };
     }
     createCheckboxes = () => {
         let { mapping, value } = this.props;
         let checkboxes = [];
         for (let i = 0; i < mapping.length; i++) {
+            mapping[i]['checked'] = false;
             if (value && Array.isArray(value) && 0 < value.length) {
                 for (let j = 0; j < value.length; j++) {
                     if (parseInt(value[j]) === mapping[i].value) {
