@@ -7,19 +7,19 @@ let data = {
     header: [
         { text: 'Truck plate', key: 'truck-palte', searchAble: true, sortAble: true },
         { text: 'Cargo type', key: 'cargo-type', searchAble: false, sortAble: true },
-        { text: 'Cargo type', key: 'cargo-type-show', searchAble: true, sortAble: true },
+        { text: 'Cargo type', key: 'cargo-type-show', searchAble: true, sortAble: false },
         { text: 'Driver', key: 'driver', searchAble: true, sortAble: true },
         { text: 'Truck type', key: 'truck-type', searchAble: true, sortAble: true },
         { text: 'Price', key: 'price', searchAble: true, sortAble: true },
-        { text: 'Dimension', key: 'dimention', note: 'L-W-H', searchAble: true, sortAble: true },
+        { text: 'Dimension', key: 'dimention', note: 'L-W-H', searchAble: true, sortAble: false },
         { text: 'Dimension', key: 'dimention-l' },
         { text: 'Dimension', key: 'dimention-w' },
         { text: 'Dimension', key: 'dimention-h' },
-        { text: 'Parking address', key: 'parking-address', searchAble: true, sortAble: true },
+        { text: 'Parking address', key: 'parking-address', searchAble: true, sortAble: false },
         { text: 'Production year', key: 'production-year', searchAble: true, sortAble: true },
-        { text: 'Status', key: 'status', searchAble: false, sortAble: true },
+        { text: 'Status', key: 'status', searchAble: false, sortAble: false },
         { text: 'Status', key: 'status-show', searchAble: true, sortAble: true },
-        { text: 'Description', key: 'description', searchAble: true, sortAble: true }
+        { text: 'Description', key: 'description', searchAble: true, sortAble: false }
     ],
     mapping: {
         'status': [{ value: 0, text: 'New' }, { value: 1, text: 'In-use' }, { value: -1, text: 'Stopper' }],

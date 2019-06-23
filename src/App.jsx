@@ -72,6 +72,7 @@ class App extends React.Component {
   }
   proccessDataShow() {
     let { dataList, dataFilterList, header } = this.state;
+    // handle search
     dataFilterList = dataList.filter((value, index) => {
       if ('' === this.state.searchBy) {
         for (let i = 0; i < header.length; i++) {
@@ -85,6 +86,29 @@ class App extends React.Component {
         return value[this.state.searchBy].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1;
       }
     });
+
+    // handle sort
+    dataFilterList.sort((d1, d2) => {
+      let { sortBy } = this.state;
+      if (0 === this.state.sortType) {// sort a->z, min->max
+        if (d1[sortBy] > d2[sortBy]) {
+          return 1;
+        } else if (d1[sortBy] < d2[sortBy]) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }else if (1 === this.state.sortType) {// sort z->a, max->min
+        if (d1[sortBy] > d2[sortBy]) {
+          return -1;
+        } else if (d1[sortBy] < d2[sortBy]) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    });
+
     this.setState(
       {
         pageIdx: 0,
@@ -207,6 +231,15 @@ class App extends React.Component {
     })
   }
 
+  onSort = (sortBy, sortType) => {
+    this.setState({
+      sortBy: sortBy,
+      sortType: sortType
+    }, () => {
+      this.proccessDataShow();
+    })
+  }
+
   render() {
     let content = null;
     if (this.state.load) {
@@ -235,6 +268,8 @@ class App extends React.Component {
             <p>{`Number trucks: ${this.state.dataFilterList.length}`}</p>
             <Table
               header={this.state.header}
+              sort={{ sortBy: this.state.sortBy, sortType: this.state.sortType }}
+              onSort={this.onSort}
               dataList={this.state.dataListPage}
               mapping={this.state.mapping}
               pageIdx={this.state.pageIdx}

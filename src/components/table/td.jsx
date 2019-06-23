@@ -37,13 +37,24 @@ class Td extends React.Component {
             }
         }
     }
+    onSort = (sortBy, sortType) => {
+        this.props.onSort(sortBy, sortType);
+    }
     render() {
         let tdEle = (
             <td key={this.handleValue()}>{this.handleValue()}</td>
         );
         if (1 === this.props.type) {
+            let sortEle = this.props.value.sortAble ?
+                <div>
+                    <div onClick={()=>{this.onSort(this.props.value.key, 0)}}>^</div>
+                    <div onClick={()=>{this.onSort(this.props.value.key, 1)}}>V</div>
+                </div> : '';
             tdEle = (
-                <th key={this.handleValue()} scope="col">{this.handleValue()}</th>
+                <th key={this.handleValue()} scope="col">
+                    {this.handleValue()}
+                    {sortEle}
+                </th>
             );
         }
         return tdEle;
