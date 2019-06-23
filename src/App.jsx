@@ -75,7 +75,7 @@ class App extends React.Component {
     dataFilterList = dataList.filter((value, index) => {
       if ('' === this.state.searchBy) {
         for (let i = 0; i < header.length; i++) {
-          if ('string' === typeof value[header[i].key] &&
+          if ('string' === typeof value[header[i].key] && header[i].searchAble &&
             value[header[i].key].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
             return true;
           }
@@ -203,7 +203,7 @@ class App extends React.Component {
   onChangePage = (pageIdx) => {
     this.setState({
       pageIdx: pageIdx,
-      dataListPage: this.state.dataFilterList.slice( (pageIdx*this.state.numberItemOnePage), (pageIdx*this.state.numberItemOnePage + this.state.numberItemOnePage))
+      dataListPage: this.state.dataFilterList.slice((pageIdx * this.state.numberItemOnePage), (pageIdx * this.state.numberItemOnePage + this.state.numberItemOnePage))
     })
   }
 
