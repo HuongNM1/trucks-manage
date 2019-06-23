@@ -27,4 +27,27 @@
 
 @mixin tdthPaddingContent(){
     padding: 5px 5px;
+};
+
+@mixin toolbarHandler(){
+    /* width */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+  
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px $backgroundColorHover;
+    }
+   
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $backgroundColor; 
+        border-radius: 3px;
+    }
+  
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: $hoverColor; 
+    }
 }

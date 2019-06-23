@@ -120,14 +120,14 @@ class InputForm extends React.Component {
             { type: 4, attr: 'cargo-type' },
             { type: 1, attr: 'driver' },
             { type: 1, attr: 'truck-type' },
+            { type: 2, attr: 'parking-address' },
+
+            { type: 1, attr: 'price' },
             { type: 1, attr: 'dimention-l' },
             { type: 1, attr: 'dimention-w' },
             { type: 1, attr: 'dimention-h' },
-
-            { type: 1, attr: 'price' },
             { type: 1, attr: 'production-year' },
             { type: 3, attr: 'status' },
-            { type: 2, attr: 'parking-address' },
             { type: 2, attr: 'description' }
         ];
         let truckEles = [];
@@ -157,8 +157,8 @@ class InputForm extends React.Component {
 
     render() {
         let truckElems = this.getInputEles();
-        let truckEles1 = truckElems.slice(0, 7);
-        let truckEles2 = truckElems.slice(7);
+        let truckEles1 = truckElems.slice(0, 5);
+        let truckEles2 = truckElems.slice(5);
         let headerTitle = this.props.headerTitle ? this.props.headerTitle : 0 === this.props.formType ? 'Add new truck' : 'Edit new truck'; return (
             <div>
                 <div className="input-form-cover">

@@ -1,3 +1,4 @@
+@import '../../assets/scss/common.scss';
 .input-label, .input-content{
     display: inline-block
 }
@@ -16,14 +17,29 @@
     top: -16px;
     left: -12px;
 }
+select>option:hover{
+    background-color: $backgroundColorHover !important;
+    cursor: pointer !important;
+}
+.carlist{
+    min-width: 250px;
+    border-radius: 2px;
+}
 .checkbox-cover{
-    overflow: auto;
+    @include toolbarHandler();
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 250px;
     border-radius: 3px;
-    max-height: 130px;
+    max-height: 141px;
     border: 1px solid #cccccc;
     position: relative;
     z-index: 2005;
     .checkbox{
+        &:hover{
+            background-color: $backgroundColorHover;
+            cursor: pointer;
+        }
         display: flex;
         display: -webkit-flex; /* Safari */
         align-items: center;
