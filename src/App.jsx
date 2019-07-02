@@ -240,7 +240,7 @@ class App extends React.Component {
 
   render() {
     let content = null;
-    if (this.props.commonReducer.load) {
+    if (this.props.load) {
       content =
         <div className="cover">
           <h1 className="page-title">Truck Managment</h1>
@@ -292,7 +292,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state =>({
-  ...state
+  ...state.commonReducer
 });
 
 const mapDispatchToProps = (dispatch, ownProps)=>({
