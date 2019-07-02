@@ -7,7 +7,6 @@ const initialState = {
     dataList: [],
     sortBy: 0,
     sortType: 0,
-    load: true,
     dataFilterList: [],
     dataListPage: [],
     openInputForm: false,
@@ -27,7 +26,6 @@ function truckReducer(state = initialState, action) {
             console.log(types.LIST_ALL);
             return state;
     }
-    console.log(state);
     return state;
 }
 export default truckReducer;

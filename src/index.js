@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import truckReducer from './TruckReducer/index';
+import Reducers from './Reducer/index';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
@@ -9,8 +9,8 @@ import App from './App';
 import './custom.scss';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(truckReducer);
-
+const store = createStore(Reducers);
+console.log('store.getState: ',store.getState());
 ReactDOM.render(
     <Provider store={store}>
         <App />

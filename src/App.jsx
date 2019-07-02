@@ -240,7 +240,7 @@ class App extends React.Component {
 
   render() {
     let content = null;
-    if (this.props.load) {
+    if (this.props.commonReducer.load) {
       content =
         <div className="cover">
           <h1 className="page-title">Truck Managment</h1>
