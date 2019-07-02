@@ -5,35 +5,36 @@ import Table from './components/table/Table';
 import Load from './components/Load';
 import InputForm from './components/form/InputForm';
 import TruckModel from './services/truckModel';
+import {connect} from 'react-redux';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      header: [],
-      dataList: [],
-      sortBy: 0,
-      sortType: 0,
-      load: true,
-      dataFilterList: [],
-      dataListPage: [],
-      openInputForm: false,
-      typeInputForm: 0,
-      dataModel: {},
-      formType: 0,
-      pageIdx: 0,
-      maxDisplayPages: 5,
-      numberItemOnePage: 10,
-      searchBy: '',
-      searchString: ''
-    }
+    // this.props = {
+    //   header: [],
+    //   dataList: [],
+    //   sortBy: 0,
+    //   sortType: 0,
+    //   load: true,
+    //   dataFilterList: [],
+    //   dataListPage: [],
+    //   openInputForm: false,
+    //   typeInputForm: 0,
+    //   dataModel: {},
+    //   formType: 0,
+    //   pageIdx: 0,
+    //   maxDisplayPages: 5,
+    //   numberItemOnePage: 10,
+    //   searchBy: '',
+    //   searchString: ''
+    // }
 
-    Object.keys(TruckModel).forEach((key, idx) => {
-      this.state.dataModel[key] = { value: '', errorCode: null };
-    });
-  }
+    // Object.keys(TruckModel).forEach((key, idx) => {
+    //   this.props.dataModel[key] = { value: '', errorCode: null };
+    // });
+  // }
 
   async getData() {
     let self = this;
@@ -60,7 +61,7 @@ class App extends React.Component {
         attributesInum: result.data['attributesInum'],
         load: false,
         dataFilterList: result.data['dataList'],
-        dataListPage: result.data['dataList'].slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
+        dataListPage: result.data['dataList'].slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
       });
     }
   }
@@ -69,26 +70,26 @@ class App extends React.Component {
     this.getData()
   }
   proccessDataShow() {
-    let { dataList, dataFilterList, header } = this.state;
+    let { dataList, dataFilterList, header } = this.props;
     // handle search
     dataFilterList = dataList.filter((value, index) => {
-      if ('' === this.state.searchBy) {
+      if ('' === this.props.searchBy) {
         for (let i = 0; i < header.length; i++) {
           if (header[i].searchAble &&
-            value[header[i].key].toString().toLowerCase().indexOf(this.state.searchString.toString().toLowerCase()) !== -1) {
+            value[header[i].key].toString().toLowerCase().indexOf(this.props.searchString.toString().toLowerCase()) !== -1) {
             return true;
           }
         }
         return false;
       } else {
-        return value[this.state.searchBy].toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1;
+        return value[this.props.searchBy].toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1;
       }
     });
 
     // handle sort
     dataFilterList.sort((d1, d2) => {
-      let { sortBy } = this.state;
-      if (0 === this.state.sortType) {// sort a->z, min->max
+      let { sortBy } = this.props;
+      if (0 === this.props.sortType) {// sort a->z, min->max
         if (d1[sortBy] > d2[sortBy]) {
           return 1;
         } else if (d1[sortBy] < d2[sortBy]) {
@@ -96,7 +97,7 @@ class App extends React.Component {
         } else {
           return 0;
         }
-      } else if (1 === this.state.sortType) {// sort z->a, max->min
+      } else if (1 === this.props.sortType) {// sort z->a, max->min
         if (d1[sortBy] > d2[sortBy]) {
           return -1;
         } else if (d1[sortBy] < d2[sortBy]) {
@@ -111,7 +112,7 @@ class App extends React.Component {
       {
         pageIdx: 0,
         dataFilterList: dataFilterList,
-        dataListPage: dataFilterList.slice(this.state.pageIdx, this.state.pageIdx + this.state.numberItemOnePage)
+        dataListPage: dataFilterList.slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
       }
     );
   }
@@ -136,10 +137,10 @@ class App extends React.Component {
 
   onOpenEditForm = (truckId) => {
     let dataModel = {};
-    for (let i = 0; i < this.state.dataList.length; i++) {
-      if (truckId === this.state.dataList[i]['id']) {
-        Object.keys(this.state.dataList[i]).forEach((key, idx) => {
-          dataModel[key] = { value: this.state.dataList[i][key], errorCode: null }
+    for (let i = 0; i < this.props.dataList.length; i++) {
+      if (truckId === this.props.dataList[i]['id']) {
+        Object.keys(this.props.dataList[i]).forEach((key, idx) => {
+          dataModel[key] = { value: this.props.dataList[i][key], errorCode: null }
         });
         this.setState({
           openInputForm: true,
@@ -152,7 +153,7 @@ class App extends React.Component {
   }
 
   getTextValue = (attribute, value) => {
-    let { mapping } = this.state;
+    let { mapping } = this.props;
     let mappingValues = mapping[attribute];
     if (mappingValues && Array.isArray(mappingValues) && 0 < mappingValues.length) {
       for (let i = 0; i < mappingValues.length; i++) {
@@ -168,7 +169,7 @@ class App extends React.Component {
     Object.keys(dataModel).forEach((key, idx) => {
       if ('function' === typeof TruckModel[key].showValue) {
         let keyForValue = key.split('-show')[0];
-        dataValue[key] = TruckModel[key].showValue(dataModel, key, dataModel[keyForValue].value, this.state.mapping[keyForValue]);
+        dataValue[key] = TruckModel[key].showValue(dataModel, key, dataModel[keyForValue].value, this.props.mapping[keyForValue]);
       } else {
         dataValue[key] = dataModel[key].value;
       }
@@ -177,11 +178,11 @@ class App extends React.Component {
   }
 
   onSubmitForm = (dataModel) => {
-    let { dataList } = this.state;
-    if (0 === this.state.formType) {
+    let { dataList } = this.props;
+    if (0 === this.props.formType) {
       dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
       dataList.push(this.getDataModelValue(dataModel));
-    } else if (1 === this.state.formType) {
+    } else if (1 === this.props.formType) {
       let dataValue = this.getDataModelValue(dataModel);
       for (let i = 0; i < dataList.length; i++) {
         if (dataList[i].id == dataValue['id']) {
@@ -199,7 +200,7 @@ class App extends React.Component {
   onDelete = (truckId) => {
     let cf = window.confirm('Do you really want to delete this truck information?');
     if (true === cf) {
-      let { dataList } = this.state;
+      let { dataList } = this.props;
       for (let i = 0; i < dataList.length; i++) {
         if (dataList[i]['id'] === truckId) {
           dataList.splice(i, 1);
@@ -224,7 +225,7 @@ class App extends React.Component {
   onChangePage = (pageIdx) => {
     this.setState({
       pageIdx: pageIdx,
-      dataListPage: this.state.dataFilterList.slice((pageIdx * this.state.numberItemOnePage), (pageIdx * this.state.numberItemOnePage + this.state.numberItemOnePage))
+      dataListPage: this.props.dataFilterList.slice((pageIdx * this.props.numberItemOnePage), (pageIdx * this.props.numberItemOnePage + this.props.numberItemOnePage))
     })
   }
 
@@ -239,21 +240,21 @@ class App extends React.Component {
 
   render() {
     let content = null;
-    if (this.state.load) {
+    if (this.props.load) {
       content =
         <div className="cover">
           <h1 className="page-title">Truck Managment</h1>
           <Load />
         </div>;
     } else {
-      let inputForm = this.state.openInputForm ?
+      let inputForm = this.props.openInputForm ?
         <div className="row">
           <InputForm
             onSubmit={this.onSubmitForm}
             onClose={this.onCloseFrom}
-            formType={this.state.formType}
-            value={this.state.dataModel}
-            mapping={this.state.mapping}
+            formType={this.props.formType}
+            value={this.props.dataModel}
+            mapping={this.props.mapping}
           />
         </div> : '';
       content =
@@ -264,22 +265,22 @@ class App extends React.Component {
           <div>
             {inputForm}
           </div>
-          <PrehandleTable search={this.searchBy} value={this.state.header} addTruck={this.addTruck} />
+          <PrehandleTable search={this.searchBy} value={this.props.header} addTruck={this.addTruck} />
           <div className="number-of-item">
             <span className="number-title">There are </span>
-            <span className="number-value">{this.state.dataFilterList.length}</span>
+            <span className="number-value">{this.props.dataFilterList.length}</span>
             <span className="number-title"> item(s) in list</span>
           </div>
           <Table
-            header={this.state.header}
-            sort={{ sortBy: this.state.sortBy, sortType: this.state.sortType }}
+            header={this.props.header}
+            sort={{ sortBy: this.props.sortBy, sortType: this.props.sortType }}
             onSort={this.onSort}
-            dataList={this.state.dataListPage}
-            dataFilterList={this.state.dataFilterList}
-            mapping={this.state.mapping}
-            pageIdx={this.state.pageIdx}
-            numberItemOnePage={this.state.numberItemOnePage}
-            maxDisplayPages={this.state.maxDisplayPages}
+            dataList={this.props.dataListPage}
+            dataFilterList={this.props.dataFilterList}
+            mapping={this.props.mapping}
+            pageIdx={this.props.pageIdx}
+            numberItemOnePage={this.props.numberItemOnePage}
+            maxDisplayPages={this.props.maxDisplayPages}
             onOpenEditForm={this.onOpenEditForm}
             onDelete={this.onDelete}
             onChangePage={this.onChangePage}
@@ -290,4 +291,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state =>({
+  ...state
+});
+
+const mapDispatchToProps = (dispatch, ownProps)=>({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
