@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faStepForward, faBackward, faForward } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { onChangePageAction } from '../../redux/actions';
 
 class Paging extends React.Component {
     constructor(props) {
@@ -130,5 +132,18 @@ class Paging extends React.Component {
         return '';
     }
 }
+const mapStateToProps = state => {
+    console.log(state);
+    return ({
+    page: state.model.pageIdx,
+    numberItemOnePage: state.model.numberItemOnePage,
+    listItems: state.model.dataFilterList,
+    maxDisplayPages: state.model.maxDisplayPages
+})};
 
-export default Paging;
+const mapDispatchToProps = dispatch => {
+    return {
+        onChangePage: (page) => { dispatch(onChangePageAction(page)) }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Paging);

@@ -68,56 +68,54 @@ class App extends React.Component {
   // }
   componentDidMount() {
     this.props.onLoad();
-    console.log(this.props);
-    // const resData = Fn.getData(GET_TRUCK_DATA).then(rs=>{console.log(rs)});
   }
-  proccessDataShow() {
-    let { dataList, dataFilterList, header } = this.props;
-    // handle search
-    dataFilterList = dataList.filter((value, index) => {
-      if ('' === this.props.searchBy) {
-        for (let i = 0; i < header.length; i++) {
-          if (header[i].searchAble &&
-            value[header[i].key].toString().toLowerCase().indexOf(this.props.searchString.toString().toLowerCase()) !== -1) {
-            return true;
-          }
-        }
-        return false;
-      } else {
-        return value[this.props.searchBy].toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1;
-      }
-    });
+  // proccessDataShow() {
+  //   let { dataList, dataFilterList, header } = this.props;
+  //   // handle search
+  //   dataFilterList = dataList.filter((value, index) => {
+  //     if ('' === this.props.searchBy) {
+  //       for (let i = 0; i < header.length; i++) {
+  //         if (header[i].searchAble &&
+  //           value[header[i].key].toString().toLowerCase().indexOf(this.props.searchString.toString().toLowerCase()) !== -1) {
+  //           return true;
+  //         }
+  //       }
+  //       return false;
+  //     } else {
+  //       return value[this.props.searchBy].toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1;
+  //     }
+  //   });
 
-    // handle sort
-    dataFilterList.sort((d1, d2) => {
-      let { sortBy } = this.props;
-      if (0 === this.props.sortType) {// sort a->z, min->max
-        if (d1[sortBy] > d2[sortBy]) {
-          return 1;
-        } else if (d1[sortBy] < d2[sortBy]) {
-          return -1;
-        } else {
-          return 0;
-        }
-      } else if (1 === this.props.sortType) {// sort z->a, max->min
-        if (d1[sortBy] > d2[sortBy]) {
-          return -1;
-        } else if (d1[sortBy] < d2[sortBy]) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    });
+  //   // handle sort
+  //   dataFilterList.sort((d1, d2) => {
+  //     let { sortBy } = this.props;
+  //     if (0 === this.props.sortType) {// sort a->z, min->max
+  //       if (d1[sortBy] > d2[sortBy]) {
+  //         return 1;
+  //       } else if (d1[sortBy] < d2[sortBy]) {
+  //         return -1;
+  //       } else {
+  //         return 0;
+  //       }
+  //     } else if (1 === this.props.sortType) {// sort z->a, max->min
+  //       if (d1[sortBy] > d2[sortBy]) {
+  //         return -1;
+  //       } else if (d1[sortBy] < d2[sortBy]) {
+  //         return 1;
+  //       } else {
+  //         return 0;
+  //       }
+  //     }
+  //   });
 
-    this.setState(
-      {
-        pageIdx: 0,
-        dataFilterList: dataFilterList,
-        dataListPage: dataFilterList.slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
-      }
-    );
-  }
+  //   this.setState(
+  //     {
+  //       pageIdx: 0,
+  //       dataFilterList: dataFilterList,
+  //       dataListPage: dataFilterList.slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
+  //     }
+  //   );
+  // }
 
   searchBy = (searchBy, searchString) => {
     this.setState(
@@ -137,22 +135,22 @@ class App extends React.Component {
     })
   }
 
-  onOpenEditForm = (truckId) => {
-    let dataModel = {};
-    for (let i = 0; i < this.props.dataList.length; i++) {
-      if (truckId === this.props.dataList[i]['id']) {
-        Object.keys(this.props.dataList[i]).forEach((key, idx) => {
-          dataModel[key] = { value: this.props.dataList[i][key], errorCode: null }
-        });
-        this.setState({
-          openInputForm: true,
-          formType: 1,
-          dataModel: dataModel
-        });
-        return true;
-      }
-    }
-  }
+  // onOpenEditForm = (truckId) => {
+  //   let dataModel = {};
+  //   for (let i = 0; i < this.props.dataList.length; i++) {
+  //     if (truckId === this.props.dataList[i]['id']) {
+  //       Object.keys(this.props.dataList[i]).forEach((key, idx) => {
+  //         dataModel[key] = { value: this.props.dataList[i][key], errorCode: null }
+  //       });
+  //       this.setState({
+  //         openInputForm: true,
+  //         formType: 1,
+  //         dataModel: dataModel
+  //       });
+  //       return true;
+  //     }
+  //   }
+  // }
 
   getTextValue = (attribute, value) => {
     let { mapping } = this.props;
@@ -199,24 +197,24 @@ class App extends React.Component {
     sessionStorage.setItem('dataList', JSON.stringify(dataList));
   }
 
-  onDelete = (truckId) => {
-    let cf = window.confirm('Do you really want to delete this truck information?');
-    if (true === cf) {
-      let { dataList } = this.props;
-      for (let i = 0; i < dataList.length; i++) {
-        if (dataList[i]['id'] === truckId) {
-          dataList.splice(i, 1);
-          this.setState({
-            dataList: dataList
-          }, () => {
-            this.proccessDataShow();
-          });
-          sessionStorage.setItem('dataList', JSON.stringify(dataList));
-          return true;
-        }
-      }
-    }
-  }
+  // onDelete = (truckId) => {
+  //   let cf = window.confirm('Do you really want to delete this truck information?');
+  //   if (true === cf) {
+  //     let { dataList } = this.props;
+  //     for (let i = 0; i < dataList.length; i++) {
+  //       if (dataList[i]['id'] === truckId) {
+  //         dataList.splice(i, 1);
+  //         this.setState({
+  //           dataList: dataList
+  //         }, () => {
+  //           this.proccessDataShow();
+  //         });
+  //         sessionStorage.setItem('dataList', JSON.stringify(dataList));
+  //         return true;
+  //       }
+  //     }
+  //   }
+  // }
 
   onCloseFrom = () => {
     this.setState({
@@ -224,21 +222,21 @@ class App extends React.Component {
     })
   }
 
-  onChangePage = (pageIdx) => {
-    this.setState({
-      pageIdx: pageIdx,
-      dataListPage: this.props.dataFilterList.slice((pageIdx * this.props.numberItemOnePage), (pageIdx * this.props.numberItemOnePage + this.props.numberItemOnePage))
-    })
-  }
+  // onChangePage = (pageIdx) => {
+  //   this.setState({
+  //     pageIdx: pageIdx,
+  //     dataListPage: this.props.dataFilterList.slice((pageIdx * this.props.numberItemOnePage), (pageIdx * this.props.numberItemOnePage + this.props.numberItemOnePage))
+  //   })
+  // }
 
-  onSort = (sortBy, sortType) => {
-    this.setState({
-      sortBy: sortBy,
-      sortType: sortType
-    }, () => {
-      this.proccessDataShow();
-    })
-  }
+  // onSort = (sortBy, sortType) => {
+  //   this.setState({
+  //     sortBy: sortBy,
+  //     sortType: sortType
+  //   }, () => {
+  //     this.proccessDataShow();
+  //   })
+  // }
 
   render() {
     let content = null;
@@ -274,18 +272,18 @@ class App extends React.Component {
             <span className="number-title"> item(s) in list</span>
           </div>
           <Table
-            header={this.props.header}
-            sort={{ sortBy: this.props.sortBy, sortType: this.props.sortType }}
-            onSort={this.onSort}
-            dataList={this.props.dataListPage}
-            dataFilterList={this.props.dataFilterList}
-            mapping={this.props.mapping}
-            pageIdx={this.props.pageIdx}
-            numberItemOnePage={this.props.numberItemOnePage}
-            maxDisplayPages={this.props.maxDisplayPages}
-            onOpenEditForm={this.onOpenEditForm}
-            onDelete={this.onDelete}
-            onChangePage={this.onChangePage}
+            // header={this.props.header}
+            // sort={{ sortBy: this.props.sortBy, sortType: this.props.sortType }}
+            // onSort={this.onSort}
+            // dataList={this.props.dataListPage}
+            // dataFilterList={this.props.dataFilterList}
+            // mapping={this.props.mapping}
+            // pageIdx={this.props.pageIdx}
+            // numberItemOnePage={this.props.numberItemOnePage}
+            // maxDisplayPages={this.props.maxDisplayPages}
+            // onOpenEditForm={this.onOpenEditForm}
+            // onDelete={this.onDelete}
+            // onChangePage={this.onChangePage}
           />
         </div>;
     }

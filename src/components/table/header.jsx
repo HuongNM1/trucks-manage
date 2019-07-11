@@ -1,20 +1,22 @@
 import * as React from 'react';
 import Td from './td';
 import TruckModel from '../../services/truckModel';
+import { connect } from 'react-redux';
 
 /**
  * Header component
  */
 class Header extends React.Component {
-    onSort = (sortBy, sortType) => {
-        this.props.onSort(sortBy, sortType);
-    }
     renderHeader() {
         let headerItems = [];
 
-        for (let i = 0; i < this.props.value.length; i++) {
-            if (TruckModel[this.props.value[i].key].showOnList) {
-                headerItems.push(<Td key={`${this.props.value[i].key}-${i}`} value={this.props.value[i]} type={1} onSort={this.onSort} />);
+        for (let i = 0; i < this.props.header.length; i++) {
+            if (TruckModel[this.props.header[i].key].showOnList) {
+                headerItems.push(
+                    <Td
+                        key={`${this.props.header[i].key}-${i}`}
+                        value={this.props.header[i]} type={1}
+                    />);
             }
         }
         return headerItems;
@@ -31,4 +33,8 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+const mapStateToProps = state =>({
+    header: state.model.header
+});
+
+export default connect(mapStateToProps, null)(Header);

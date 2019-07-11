@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { onSortAction } from '../../redux/actions';
 
 /**
  * TD component
@@ -39,9 +41,9 @@ class Td extends React.Component {
             }
         }
     }
-    onSort = (sortBy, sortType) => {
-        this.props.onSort(sortBy, sortType);
-    }
+    // onSort = (sortBy, sortType) => {
+    //     this.props.onSort(sortBy, sortType);
+    // }
     render() {
         let tdEle = (
             <td key={this.handleValue()}>{this.handleValue()}</td>
@@ -49,8 +51,8 @@ class Td extends React.Component {
         if (1 === this.props.type) {
             let sortEle = this.props.value.sortAble ?
                 <div className={`sort-icon-cover sort-icon-cover-${this.props.value.key}`}>
-                    <div className='up' onClick={() => { this.onSort(this.props.value.key, 0) }}><FontAwesomeIcon icon={faAngleUp} /></div>
-                    <div className='down' onClick={() => { this.onSort(this.props.value.key, 1) }}><FontAwesomeIcon icon={faAngleDown} /></div>
+                    <div className='up' onClick={() => { this.props.onSort(this.props.value.key, 0) }}><FontAwesomeIcon icon={faAngleUp} /></div>
+                    <div className='down' onClick={() => { this.props.onSort(this.props.value.key, 1) }}><FontAwesomeIcon icon={faAngleDown} /></div>
                 </div> : '';
             tdEle = (
                 <th key={this.handleValue()} scope="col">
@@ -65,4 +67,12 @@ class Td extends React.Component {
     }
 }
 
-export default Td;
+const mapStateToProps = state => {
+    return ({ ...state.model })
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        onSort: (sortBy, sortType) => { dispatch(onSortAction(sortBy, sortType)) }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Td);
