@@ -1,0 +1,4 @@
+export const LIST_ALL = 'LIST_ALL';
+export const FETCHING_DATA = 'FETCHING_DATA';
+export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
+export const FETCH_DATA_FAIL = 'FETCH_DATA_FAIL';

@@ -1,0 +1,1 @@
+export const SCUCCESS_CODE = 200;

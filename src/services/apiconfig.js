@@ -1,0 +1,1 @@
+export const GET_TRUCK_DATA = 'http://localhost:3008/';

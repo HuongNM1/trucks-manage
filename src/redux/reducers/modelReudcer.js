@@ -1,6 +1,4 @@
-import TruckModel from '../services/truckModel';
-import * as types from '../constants/index';
-import { listAll } from '../actions/index';
+import * as types from '../actiontypes';
 
 const initialState = {
     header: [],
@@ -20,12 +18,17 @@ const initialState = {
     searchString: ''
 };
 
-function truckReducer(state = initialState, action) {
+function modelReducer(state = initialState, action) {
     switch (action.type) {
         case types.LIST_ALL:
-            console.log(types.LIST_ALL);
+            return state;
+        case types.FETCH_DATA_SUCCESS:
+            const st = Object.assign({}, state, { load: false }, action.data);
+            console.log('FETCH_DATA_SUCCESS reducer', st);
+            return st;
+        default:
             return state;
     }
-    return state;
 }
-export default truckReducer;
+
+export default modelReducer;

@@ -1,12 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import PrehandleTable from './components/prehandletable/PrehandleTable';
 import Table from './components/table/Table';
 import Load from './components/Load';
 import InputForm from './components/form/InputForm';
 import TruckModel from './services/truckModel';
 import {connect} from 'react-redux';
-
+import Fn from './common/functions';
+import { GET_TRUCK_DATA } from './services/apiconfig';
+import * as actions from './redux/actions';
 
 class App extends React.Component {
   // constructor(props) {
@@ -36,38 +37,39 @@ class App extends React.Component {
     // });
   // }
 
-  async getData() {
-    let self = this;
-    self.setState({ load: true });
-    const result = await axios.get('http://localhost:3008/');
-    const dataList = sessionStorage.getItem('dataList');
-    let data = null;
-    if (dataList) {
-      try {
-        data = JSON.parse(dataList)
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    if (result && result.data) {
-      if (data) {
-        result.data['dataList'] = [...data];
-      }
-      self.setState({
-        header: result.data['header'],
-        dataList: result.data['dataList'],
-        mapping: result.data['mapping'],
-        pageIdx: 0,
-        attributesInum: result.data['attributesInum'],
-        load: false,
-        dataFilterList: result.data['dataList'],
-        dataListPage: result.data['dataList'].slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
-      });
-    }
-  }
-
+  // async getData() {
+  //   let self = this;
+  //   self.setState({ load: true });
+  //   const result = await axios.get('http://localhost:3008/');
+  //   const dataList = sessionStorage.getItem('dataList');
+  //   let data = null;
+  //   if (dataList) {
+  //     try {
+  //       data = JSON.parse(dataList);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
+  //   if (result && result.data) {
+  //     if (data) {
+  //       result.data['dataList'] = [...data];
+  //     }
+  //     self.setState({
+  //       header: result.data['header'],
+  //       dataList: result.data['dataList'],
+  //       mapping: result.data['mapping'],
+  //       pageIdx: 0,
+  //       attributesInum: result.data['attributesInum'],
+  //       load: false,
+  //       dataFilterList: result.data['dataList'],
+  //       dataListPage: result.data['dataList'].slice(this.props.pageIdx, this.props.pageIdx + this.props.numberItemOnePage)
+  //     });
+  //   }
+  // }
   componentDidMount() {
-    this.getData()
+    this.props.onLoad();
+    console.log(this.props);
+    // const resData = Fn.getData(GET_TRUCK_DATA).then(rs=>{console.log(rs)});
   }
   proccessDataShow() {
     let { dataList, dataFilterList, header } = this.props;
@@ -292,11 +294,16 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state =>({
-  ...state.commonReducer
+  ...state.common, ...state.model
 });
 
-const mapDispatchToProps = (dispatch, ownProps)=>({
-
-})
+const mapDispatchToProps = dispatch =>{
+  return {
+    onLoad: ()=>{
+      console.log('onload called')
+      dispatch(actions.asynAction(GET_TRUCK_DATA));
+    }
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
