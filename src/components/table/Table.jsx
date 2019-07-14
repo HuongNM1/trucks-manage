@@ -3,7 +3,6 @@ import './Table.scss';
 import Header from './header';
 import Body from './body';
 import Paging from './Paging';
-import {connect} from 'react-redux';
 
 /**
  * Table component

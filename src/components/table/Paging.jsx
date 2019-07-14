@@ -11,7 +11,6 @@ class Paging extends React.Component {
         this.state['startIdx'] = 0;
     }
 
-
     getPageNumber = (numberOfItem) => {
         let result = numberOfItem / this.props.numberItemOnePage;
         try {
@@ -133,7 +132,6 @@ class Paging extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log(state);
     return ({
     page: state.model.pageIdx,
     numberItemOnePage: state.model.numberItemOnePage,

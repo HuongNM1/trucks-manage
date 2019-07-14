@@ -43,6 +43,7 @@ function searchBy(state, searchBy, searchString) {
 
 function onSort(state, sortBy, sortType) {
     const { dataFilterList } = state;
+    console.log('1: ', dataFilterList);
     dataFilterList.sort((d1, d2) => {
         if (0 === sortType) {// sort a->z, min->max
             if (d1[sortBy] > d2[sortBy]) {
@@ -62,6 +63,7 @@ function onSort(state, sortBy, sortType) {
             }
         }
     });
+    console.log('2: ', dataFilterList, dataFilterList.slice(state.pageIdx, state.pageIdx + state.numberItemOnePage));
     return {
         sortBy,
         sortType,
@@ -111,15 +113,59 @@ function onChangePage(state, pageIdx) {
     };
 }
 
+function handleDataAfterGet(dataServer, state) {
+    let self = this;
+    const dataList = sessionStorage.getItem('dataList');
+    let data = null;
+    if (dataList) {
+        try {
+            data = JSON.parse(dataList);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const stateTemp = Object.assign({}, state, { load: false }, {
+        header: dataServer['header'],
+        mapping: dataServer['mapping'],
+        pageIdx: 0,
+        attributesInum: dataServer['attributesInum'],
+        dataList: dataServer['dataList'],
+        dataFilterList: dataServer['dataList'],
+        dataListPage: dataServer['dataList'].slice(state.pageIdx, state.pageIdx + state.numberItemOnePage)
+    });
+    return stateTemp;
+}
+
+function onSubmitForm(dataModel){
+    console.log(dataModel);
+    let { dataList } = this.props;
+    if (0 === this.props.formType) {
+        dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
+        dataList.push(this.getDataModelValue(dataModel));
+    } else if (1 === this.props.formType) {
+        let dataValue = this.getDataModelValue(dataModel);
+        for (let i = 0; i < dataList.length; i++) {
+            if (dataList[i].id == dataValue['id']) {
+                dataList[i] = { ...dataValue };
+                break;
+            }
+        }
+    }
+    this.setState({
+        dataList: dataList
+    }, () => { this.proccessDataShow(); })
+    sessionStorage.setItem('dataList', JSON.stringify(dataList));
+}
+
 function modelReducer(state = initialState, action) {
     switch (action.type) {
         case types.LIST_ALL:
             return state;
         case types.FETCH_DATA_SUCCESS:
-            const st = Object.assign({}, state, { load: false }, action.data);
-            return st;
+            return handleDataAfterGet(action.data, state);
         case types.ON_SORT:
-            const sortResult = onSort(state, action.key, action.sortType)
+            const sortResult = onSort(state, action.key, action.sortType);
             return Object.assign({}, state, sortResult);
         case types.ON_OPEN_EDIT_FORM:
             const openEditFormResult = onOpenEditForm(state, action.id);
@@ -128,8 +174,11 @@ function modelReducer(state = initialState, action) {
             const deleteResult = onDelete(state, action.id);
             return Object.assign({}, state, deleteResult);
         case types.ON_CHANGE_PAGE:
-            const changePageResult = onChangePage(state, action.id);
+            const changePageResult = onChangePage(state, action.page);
             return Object.assign({}, state, changePageResult);
+        case types.ON_SUBMIT_FORM:
+            const dataSubmit = onSubmitForm(action.dataModel);
+            return Object.assign({}, state, dataSubmit);
         default:
             return state;
     }

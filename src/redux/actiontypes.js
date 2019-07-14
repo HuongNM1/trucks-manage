@@ -6,3 +6,5 @@ export const ON_SORT = 'ON_SORT';
 export const ON_OPEN_EDIT_FORM = 'ON_OPEN_EDIT_FORM';
 export const ON_DELETE = 'ON_DELETE';
 export const ON_CHANGE_PAGE = 'ON_CHANGE_PAGE';
+export const ON_SUBMIT_FORM = 'ON_SUBMIT_FORM';
+export const ON_CLOS_FORM = 'ON_CLOS_FORM';

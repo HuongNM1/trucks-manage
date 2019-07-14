@@ -177,25 +177,25 @@ class App extends React.Component {
     return dataValue;
   }
 
-  onSubmitForm = (dataModel) => {
-    let { dataList } = this.props;
-    if (0 === this.props.formType) {
-      dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
-      dataList.push(this.getDataModelValue(dataModel));
-    } else if (1 === this.props.formType) {
-      let dataValue = this.getDataModelValue(dataModel);
-      for (let i = 0; i < dataList.length; i++) {
-        if (dataList[i].id == dataValue['id']) {
-          dataList[i] = { ...dataValue };
-          break;
-        }
-      }
-    }
-    this.setState({
-      dataList: dataList
-    }, () => { this.proccessDataShow(); })
-    sessionStorage.setItem('dataList', JSON.stringify(dataList));
-  }
+  // onSubmitForm = (dataModel) => {
+  //   let { dataList } = this.props;
+  //   if (0 === this.props.formType) {
+  //     dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
+  //     dataList.push(this.getDataModelValue(dataModel));
+  //   } else if (1 === this.props.formType) {
+  //     let dataValue = this.getDataModelValue(dataModel);
+  //     for (let i = 0; i < dataList.length; i++) {
+  //       if (dataList[i].id == dataValue['id']) {
+  //         dataList[i] = { ...dataValue };
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   this.setState({
+  //     dataList: dataList
+  //   }, () => { this.proccessDataShow(); })
+  //   sessionStorage.setItem('dataList', JSON.stringify(dataList));
+  // }
 
   // onDelete = (truckId) => {
   //   let cf = window.confirm('Do you really want to delete this truck information?');
@@ -250,11 +250,11 @@ class App extends React.Component {
       let inputForm = this.props.openInputForm ?
         <div className="row">
           <InputForm
-            onSubmit={this.onSubmitForm}
-            onClose={this.onCloseFrom}
-            formType={this.props.formType}
-            value={this.props.dataModel}
-            mapping={this.props.mapping}
+            // onSubmit={this.onSubmitForm}
+            // onClose={this.onCloseFrom}
+            // formType={this.props.formType}
+            // value={this.props.dataModel}
+            // mapping={this.props.mapping}
           />
         </div> : '';
       content =
@@ -271,20 +271,7 @@ class App extends React.Component {
             <span className="number-value">{this.props.dataFilterList.length}</span>
             <span className="number-title"> item(s) in list</span>
           </div>
-          <Table
-            // header={this.props.header}
-            // sort={{ sortBy: this.props.sortBy, sortType: this.props.sortType }}
-            // onSort={this.onSort}
-            // dataList={this.props.dataListPage}
-            // dataFilterList={this.props.dataFilterList}
-            // mapping={this.props.mapping}
-            // pageIdx={this.props.pageIdx}
-            // numberItemOnePage={this.props.numberItemOnePage}
-            // maxDisplayPages={this.props.maxDisplayPages}
-            // onOpenEditForm={this.onOpenEditForm}
-            // onDelete={this.onDelete}
-            // onChangePage={this.onChangePage}
-          />
+          <Table />
         </div>;
     }
     return content;
@@ -298,7 +285,6 @@ const mapStateToProps = state =>({
 const mapDispatchToProps = dispatch =>{
   return {
     onLoad: ()=>{
-      console.log('onload called')
       dispatch(actions.asynAction(GET_TRUCK_DATA));
     }
   }

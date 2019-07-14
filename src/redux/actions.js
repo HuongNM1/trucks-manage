@@ -62,6 +62,19 @@ export const onDeleteAction = id =>{
 export const onChangePageAction = page =>{
     return {
         type: types.ON_CHANGE_PAGE,
-        page
+        page: page
+    }
+}
+
+export const onSubmitFormAction = dataModel =>{
+    return {
+        type: types.ON_SUBMIT_FORM,
+        dataModel: dataModel
+    }
+}
+
+export const onCloseFormAction = ()=>{
+    return {
+        type: types.ON_CLOS_FORM,
     }
 }

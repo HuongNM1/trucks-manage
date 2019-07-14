@@ -4,11 +4,14 @@ import TruckModel from '../../services/truckModel';
 import validateFunc from './validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { onCloseFormAction, onSubmitFormAction } from '../../redux/actions';
 import './InputForm.scss';
 
 class InputForm extends React.Component {
 
     constructor(props) {
+        console.log(props);
         super(props);
         if (0 === props.formType) {
             // reset dataModel to default value in truck model
@@ -180,7 +183,6 @@ class InputForm extends React.Component {
                         <button type="button" className="btn btn-outline-warning mr-1" onClick={this.onClose}>Cancel</button>
                         <button type="button" className="btn btn-outline-success" onClick={this.onSubmit}>Submit</button>
                     </div>
-
                 </div>
                 <div className="backdrop" onClick={this.onClose}></div>
             </div>
@@ -188,4 +190,17 @@ class InputForm extends React.Component {
     }
 }
 
-export default InputForm;
+const mapStateToProps = state => ({
+    formType: state.model.formType,
+    value: state.model.dataModel,
+    mapping: state.model.mapping
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onClose: () => { dispatch(onCloseFormAction()) },
+        onSubmit: () => { dispatch(onSubmitFormAction()) }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputForm);
