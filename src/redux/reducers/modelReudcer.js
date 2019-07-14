@@ -1,4 +1,5 @@
 import * as types from '../actiontypes';
+import TruckModel from '../../services/truckModel';
 
 const initialState = {
     header: [],
@@ -41,9 +42,10 @@ function searchBy(state, searchBy, searchString) {
     };
 }
 
-function onSort(state, sortBy, sortType) {
+function onSort(state, sortByInput = null, sortTypeInput = null) {
     const { dataFilterList } = state;
-    console.log('1: ', dataFilterList);
+    const sortType = null === sortTypeInput ? state.sortType : sortTypeInput;
+    const sortBy = null === sortByInput ? state.sortBy : sortByInput;
     dataFilterList.sort((d1, d2) => {
         if (0 === sortType) {// sort a->z, min->max
             if (d1[sortBy] > d2[sortBy]) {
@@ -63,7 +65,6 @@ function onSort(state, sortBy, sortType) {
             }
         }
     });
-    console.log('2: ', dataFilterList, dataFilterList.slice(state.pageIdx, state.pageIdx + state.numberItemOnePage));
     return {
         sortBy,
         sortType,
@@ -114,7 +115,6 @@ function onChangePage(state, pageIdx) {
 }
 
 function handleDataAfterGet(dataServer, state) {
-    let self = this;
     const dataList = sessionStorage.getItem('dataList');
     let data = null;
     if (dataList) {
@@ -123,6 +123,10 @@ function handleDataAfterGet(dataServer, state) {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    if (data) {
+        dataServer['dataList'] = data;
     }
 
     const stateTemp = Object.assign({}, state, { load: false }, {
@@ -137,14 +141,26 @@ function handleDataAfterGet(dataServer, state) {
     return stateTemp;
 }
 
-function onSubmitForm(dataModel){
-    console.log(dataModel);
-    let { dataList } = this.props;
-    if (0 === this.props.formType) {
+function onSubmitForm(dataModel, state) {
+    const getDataModelValue = (dataModel) => {
+        let dataValue = {};
+        Object.keys(dataModel).forEach((key, idx) => {
+            if ('function' === typeof TruckModel[key].showValue) {
+                let keyForValue = key.split('-show')[0];
+                dataValue[key] = TruckModel[key].showValue(dataModel, key, dataModel[keyForValue].value, state.mapping[keyForValue]);
+            } else {
+                dataValue[key] = dataModel[key].value;
+            }
+        });
+        return dataValue;
+    }
+
+    let { dataList } = state;
+    if (0 === state.formType) {
         dataModel['id'].value = dataList[dataList.length - 1]['id'] + 1;
-        dataList.push(this.getDataModelValue(dataModel));
-    } else if (1 === this.props.formType) {
-        let dataValue = this.getDataModelValue(dataModel);
+        dataList.push(getDataModelValue(dataModel));
+    } else if (1 === state.formType) {
+        let dataValue = getDataModelValue(dataModel);
         for (let i = 0; i < dataList.length; i++) {
             if (dataList[i].id == dataValue['id']) {
                 dataList[i] = { ...dataValue };
@@ -152,10 +168,11 @@ function onSubmitForm(dataModel){
             }
         }
     }
-    this.setState({
-        dataList: dataList
-    }, () => { this.proccessDataShow(); })
+    // this.setState({
+    //     dataList: dataList
+    // }, () => { this.proccessDataShow(); })
     sessionStorage.setItem('dataList', JSON.stringify(dataList));
+    return { dataList, openInputForm: false };
 }
 
 function modelReducer(state = initialState, action) {
@@ -176,9 +193,13 @@ function modelReducer(state = initialState, action) {
         case types.ON_CHANGE_PAGE:
             const changePageResult = onChangePage(state, action.page);
             return Object.assign({}, state, changePageResult);
+        case types.ON_CLOS_FORM:
+            return Object.assign({}, state, { openInputForm: false });
         case types.ON_SUBMIT_FORM:
-            const dataSubmit = onSubmitForm(action.dataModel);
-            return Object.assign({}, state, dataSubmit);
+            const dataSubmit = onSubmitForm(action.dataModel, state);
+            const stateTemp = Object.assign({}, state, dataSubmit);
+            const stateComplete = onSort(stateTemp);
+            return Object.assign({}, state, stateComplete);
         default:
             return state;
     }

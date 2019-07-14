@@ -4,7 +4,7 @@ import Table from './components/table/Table';
 import Load from './components/Load';
 import InputForm from './components/form/InputForm';
 import TruckModel from './services/truckModel';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Fn from './common/functions';
 import { GET_TRUCK_DATA } from './services/apiconfig';
 import * as actions from './redux/actions';
@@ -13,28 +13,28 @@ class App extends React.Component {
   // constructor(props) {
   //   super(props);
 
-    // this.props = {
-    //   header: [],
-    //   dataList: [],
-    //   sortBy: 0,
-    //   sortType: 0,
-    //   load: true,
-    //   dataFilterList: [],
-    //   dataListPage: [],
-    //   openInputForm: false,
-    //   typeInputForm: 0,
-    //   dataModel: {},
-    //   formType: 0,
-    //   pageIdx: 0,
-    //   maxDisplayPages: 5,
-    //   numberItemOnePage: 10,
-    //   searchBy: '',
-    //   searchString: ''
-    // }
+  // this.props = {
+  //   header: [],
+  //   dataList: [],
+  //   sortBy: 0,
+  //   sortType: 0,
+  //   load: true,
+  //   dataFilterList: [],
+  //   dataListPage: [],
+  //   openInputForm: false,
+  //   typeInputForm: 0,
+  //   dataModel: {},
+  //   formType: 0,
+  //   pageIdx: 0,
+  //   maxDisplayPages: 5,
+  //   numberItemOnePage: 10,
+  //   searchBy: '',
+  //   searchString: ''
+  // }
 
-    // Object.keys(TruckModel).forEach((key, idx) => {
-    //   this.props.dataModel[key] = { value: '', errorCode: null };
-    // });
+  // Object.keys(TruckModel).forEach((key, idx) => {
+  //   this.props.dataModel[key] = { value: '', errorCode: null };
+  // });
   // }
 
   // async getData() {
@@ -67,7 +67,7 @@ class App extends React.Component {
   //   }
   // }
   componentDidMount() {
-    this.props.onLoad();
+      this.props.onLoad();
   }
   // proccessDataShow() {
   //   let { dataList, dataFilterList, header } = this.props;
@@ -152,30 +152,30 @@ class App extends React.Component {
   //   }
   // }
 
-  getTextValue = (attribute, value) => {
-    let { mapping } = this.props;
-    let mappingValues = mapping[attribute];
-    if (mappingValues && Array.isArray(mappingValues) && 0 < mappingValues.length) {
-      for (let i = 0; i < mappingValues.length; i++) {
-        if (mappingValues[i]['value'] === value) {
-          return mappingValues[i]['text'];
-        }
-      }
-    }
-  }
+  // getTextValue = (attribute, value) => {
+  //   let { mapping } = this.props;
+  //   let mappingValues = mapping[attribute];
+  //   if (mappingValues && Array.isArray(mappingValues) && 0 < mappingValues.length) {
+  //     for (let i = 0; i < mappingValues.length; i++) {
+  //       if (mappingValues[i]['value'] === value) {
+  //         return mappingValues[i]['text'];
+  //       }
+  //     }
+  //   }
+  // }
 
-  getDataModelValue = (dataModel) => {
-    let dataValue = {};
-    Object.keys(dataModel).forEach((key, idx) => {
-      if ('function' === typeof TruckModel[key].showValue) {
-        let keyForValue = key.split('-show')[0];
-        dataValue[key] = TruckModel[key].showValue(dataModel, key, dataModel[keyForValue].value, this.props.mapping[keyForValue]);
-      } else {
-        dataValue[key] = dataModel[key].value;
-      }
-    });
-    return dataValue;
-  }
+  // getDataModelValue = (dataModel) => {
+  //   let dataValue = {};
+  //   Object.keys(dataModel).forEach((key, idx) => {
+  //     if ('function' === typeof TruckModel[key].showValue) {
+  //       let keyForValue = key.split('-show')[0];
+  //       dataValue[key] = TruckModel[key].showValue(dataModel, key, dataModel[keyForValue].value, this.props.mapping[keyForValue]);
+  //     } else {
+  //       dataValue[key] = dataModel[key].value;
+  //     }
+  //   });
+  //   return dataValue;
+  // }
 
   // onSubmitForm = (dataModel) => {
   //   let { dataList } = this.props;
@@ -216,11 +216,11 @@ class App extends React.Component {
   //   }
   // }
 
-  onCloseFrom = () => {
-    this.setState({
-      openInputForm: false
-    })
-  }
+  // onCloseFrom = () => {
+  //   this.setState({
+  //     openInputForm: false
+  //   })
+  // }
 
   // onChangePage = (pageIdx) => {
   //   this.setState({
@@ -250,11 +250,11 @@ class App extends React.Component {
       let inputForm = this.props.openInputForm ?
         <div className="row">
           <InputForm
-            // onSubmit={this.onSubmitForm}
-            // onClose={this.onCloseFrom}
-            // formType={this.props.formType}
-            // value={this.props.dataModel}
-            // mapping={this.props.mapping}
+          // onSubmit={this.onSubmitForm}
+          // onClose={this.onCloseFrom}
+          // formType={this.props.formType}
+          // value={this.props.dataModel}
+          // mapping={this.props.mapping}
           />
         </div> : '';
       content =
@@ -278,13 +278,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
   ...state.common, ...state.model
 });
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
   return {
-    onLoad: ()=>{
+    onLoad: () => {
       dispatch(actions.asynAction(GET_TRUCK_DATA));
     }
   }

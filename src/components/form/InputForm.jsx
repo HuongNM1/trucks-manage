@@ -11,7 +11,6 @@ import './InputForm.scss';
 class InputForm extends React.Component {
 
     constructor(props) {
-        console.log(props);
         super(props);
         if (0 === props.formType) {
             // reset dataModel to default value in truck model
@@ -199,7 +198,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         onClose: () => { dispatch(onCloseFormAction()) },
-        onSubmit: () => { dispatch(onSubmitFormAction()) }
+        onSubmit: (dataModel) => { dispatch(onSubmitFormAction(dataModel)) }
     }
 };
 
